@@ -1,3 +1,4 @@
+
 INSERT INTO Tags (tag_id, vehicle_id, provider_id, vehicle_license_year) VALUES ('KO69R5975','RV87TIY76692','1',2001);
 INSERT INTO Tags (tag_id, vehicle_id, provider_id, vehicle_license_year) VALUES ('AO13W1028','RR73DWB65452','2',2017);
 INSERT INTO Tags (tag_id, vehicle_id, provider_id, vehicle_license_year) VALUES ('GF84U4130','KW50MJG67260','3',2016);

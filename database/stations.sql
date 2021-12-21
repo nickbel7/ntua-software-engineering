@@ -1,3 +1,4 @@
+
 INSERT INTO Stations (station_id, station_name, provider_id) VALUES('AO00','aodos tolls station 00','2');
 INSERT INTO Stations (station_id, station_name, provider_id) VALUES('AO01','aodos tolls station 01','2');
 INSERT INTO Stations (station_id, station_name, provider_id) VALUES('AO02','aodos tolls station 02','2');
