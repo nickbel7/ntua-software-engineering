@@ -11,7 +11,9 @@ router.get('/:station_id/:date_from/:date_to', (req,res) => {
 	client.query("Select * from passes where station_id=$1 and pass_timestamp between $2 and $3",[station_id,date_from,date_to],(err, result)=>{
 		console.log(typeof req.params.stationID);
         if(!err){
-            res.send(result.rows);
+           // res.send(result.rows);
+            const str =`Station: ${req.params.station_id}`;
+            res.send(str);
         }
         else{
         	res.send("problem!")
