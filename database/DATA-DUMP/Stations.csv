@@ -1,0 +1,169 @@
+StationID,ProviderID,StationName,StationNameAbbr,Geoloc
+1,1,"aodos tolls station 00
+",AO00,
+2,1,"aodos tolls station 01
+",AO01,
+3,1,"aodos tolls station 02
+",AO02,
+4,1,"aodos tolls station 03
+",AO03,
+5,1,"aodos tolls station 04
+",AO04,
+6,1,"aodos tolls station 05
+",AO05,
+7,1,"aodos tolls station 06
+",AO06,
+8,1,"aodos tolls station 07
+",AO07,
+9,1,"aodos tolls station 08
+",AO08,
+10,1,"aodos tolls station 09
+",AO09,
+11,1,"aodos tolls station 10
+",AO10,
+12,1,"aodos tolls station 11
+",AO11,
+13,1,"aodos tolls station 12
+",AO12,
+14,1,"aodos tolls station 13
+",AO13,
+15,1,"aodos tolls station 14
+",AO14,
+16,1,"aodos tolls station 15
+",AO15,
+17,1,"aodos tolls station 16
+",AO16,
+18,1,"aodos tolls station 17
+",AO17,
+19,1,"aodos tolls station 18
+",AO18,
+20,1,"aodos tolls station 19
+",AO19,
+21,2,"gefyra tolls station 00
+",GF00,
+22,3,"egnatia tolls station 00
+",EG00,
+23,3,"egnatia tolls station 01
+",EG01,
+24,3,"egnatia tolls station 02
+",EG02,
+25,3,"egnatia tolls station 03
+",EG03,
+26,3,"egnatia tolls station 04
+",EG04,
+27,3,"egnatia tolls station 05
+",EG05,
+28,3,"egnatia tolls station 06
+",EG06,
+29,3,"egnatia tolls station 07
+",EG07,
+30,3,"egnatia tolls station 08
+",EG08,
+31,3,"egnatia tolls station 09
+",EG09,
+32,3,"egnatia tolls station 10
+",EG10,
+33,3,"egnatia tolls station 11
+",EG11,
+34,3,"egnatia tolls station 12
+",EG12,
+35,4,"kentriki_odos tolls station 00
+",KO00,
+36,4,"kentriki_odos tolls station 01
+",KO01,
+37,4,"kentriki_odos tolls station 02
+",KO02,
+38,4,"kentriki_odos tolls station 03
+",KO03,
+39,4,"kentriki_odos tolls station 04
+",KO04,
+40,4,"kentriki_odos tolls station 05
+",KO05,
+41,4,"kentriki_odos tolls station 06
+",KO06,
+42,4,"kentriki_odos tolls station 07
+",KO07,
+43,4,"kentriki_odos tolls station 08
+",KO08,
+44,4,"kentriki_odos tolls station 09
+",KO09,
+45,5,"moreas tolls station 00
+",MR00,
+46,5,"moreas tolls station 01
+",MR01,
+47,5,"moreas tolls station 02
+",MR02,
+48,5,"moreas tolls station 03
+",MR03,
+49,5,"moreas tolls station 04
+",MR04,
+50,5,"moreas tolls station 05
+",MR05,
+51,5,"moreas tolls station 06
+",MR06,
+52,5,"moreas tolls station 07
+",MR07,
+53,5,"moreas tolls station 08
+",MR08,
+54,6,"nea_odos tolls station 00
+",NE00,
+55,6,"nea_odos tolls station 01
+",NE01,
+56,6,"nea_odos tolls station 02
+",NE02,
+57,6,"nea_odos tolls station 03
+",NE03,
+58,6,"nea_odos tolls station 04
+",NE04,
+59,6,"nea_odos tolls station 05
+",NE05,
+60,6,"nea_odos tolls station 06
+",NE06,
+61,6,"nea_odos tolls station 07
+",NE07,
+62,6,"nea_odos tolls station 08
+",NE08,
+63,6,"nea_odos tolls station 09
+",NE09,
+64,6,"nea_odos tolls station 10
+",NE10,
+65,6,"nea_odos tolls station 11
+",NE11,
+66,6,"nea_odos tolls station 12
+",NE12,
+67,6,"nea_odos tolls station 13
+",NE13,
+68,6,"nea_odos tolls station 14
+",NE14,
+69,6,"nea_odos tolls station 15
+",NE15,
+70,6,"nea_odos tolls station 16
+",NE16,
+71,7,"olympia_odos tolls station 00
+",OO00,
+72,7,"olympia_odos tolls station 01
+",OO01,
+73,7,"olympia_odos tolls station 02
+",OO02,
+74,7,"olympia_odos tolls station 03
+",OO03,
+75,7,"olympia_odos tolls station 04
+",OO04,
+76,7,"olympia_odos tolls station 05
+",OO05,
+77,7,"olympia_odos tolls station 06
+",OO06,
+78,7,"olympia_odos tolls station 07
+",OO07,
+79,7,"olympia_odos tolls station 08
+",OO08,
+80,7,"olympia_odos tolls station 09
+",OO09,
+81,7,"olympia_odos tolls station 10
+",OO10,
+82,7,"olympia_odos tolls station 11
+",OO11,
+83,7,"olympia_odos tolls station 12
+",OO12,
+84,7,"olympia_odos tolls station 13
+",OO13,
