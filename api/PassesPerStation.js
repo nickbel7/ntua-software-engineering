@@ -16,8 +16,8 @@ router.get('/:station_id/:date_from/:date_to', async (req,res) => {
                 + currentdate.getSeconds();
 	const { station_id,date_from,date_to } = req.params;
 	try {
-	const find_provider = await client.query("Select distinct providers.provider_name FROM stations NATURAL JOIN providers WHERE stations.station_id=$1",[station_id]);
-	const result = await client.query("SELECT ROW_NUMBER() OVER(ORDER BY pass_timestamp ASC) AS PassIndex,passes.pass_id AS PassID, passes.pass_timestamp AS PassTimeStamp, tags.vehicle_id AS VehicleID, providers.provider_name as TagProvider, passes.pass_rate AS PassCharge FROM passes INNER JOIN tags USING (tag_id) INNER JOIN providers USING (provider_id) WHERE station_id=$1 and pass_timestamp between $2 and $3",[station_id,date_from,date_to]);
+	const find_provider = await client.query('SELECT DISTINCT "Providers"."ProviderName" FROM "Stations" NATURAL JOIN "Providers" WHERE "Stations"."StationID"=$1',[station_id]);
+	const result = await client.query('SELECT ROW_NUMBER() OVER(ORDER BY "Timestamp" ASC) AS "PassIndex","Passes"."PassID" , "Passes"."Timestamp", "Tags"."VehicleCode" , "Providers"."ProviderName" AS "TagProvider", "Passes"."Type" AS "PassType", "Passes"."Rate" AS "PassCharge" FROM "Passes" INNER JOIN "Tags" USING ("TagID") INNER JOIN "Providers" USING ("ProviderID") WHERE "StationID"=$1 and "Timestamp" between $2 and $3',[station_id,date_from,date_to]);
 	const response = {
 		"Station":station_id,
 		"StationOperator":find_provider.rows[0].provider_name,

@@ -16,7 +16,7 @@ router.get('/:op1_ID/:op2_ID/:date_from/:date_to', async (req,res) => {
                 + currentdate.getSeconds();
 	const { op1_ID,op2_ID,date_from,date_to }= req.params;
 	try {
-	const result = await client2.query("SELECT ROW_NUMBER() OVER(ORDER BY pass_timestamp ASC) AS PassIndex, passes.pass_id AS PassID, passes.station_id AS StationID, pass_timestamp AS TimeStamp, tags.vehicle_id AS VehicleID, pass_rate AS Charge FROM passes INNER JOIN stations USING (station_id) INNER JOIN tags USING (tag_id) WHERE stations.provider_id=$1 AND tags.provider_id=$2 AND passes.pass_timestamp BETWEEN $3 AND $4",[op1_ID,op2_ID,date_from,date_to]);
+	const result = await client2.query('SELECT ROW_NUMBER() OVER(ORDER BY "Timestamp" ASC) AS "PassIndex", "Passes"."PassID", "Passes"."StationID", "Timestamp" , "Tags"."VehicleCode" AS "VehicleID", "Rate" AS "Charge" FROM "Passes" INNER JOIN "Stations" USING ("StationID") INNER JOIN "Tags" USING ("TagID") WHERE "Stations"."ProviderID"=$1 AND "Tags"."ProviderID"=$2 AND "Passes"."Timestamp" BETWEEN $3 AND $4',[op1_ID,op2_ID,date_from,date_to]);
 	const response = {
 		"op1_ID":op1_ID,
 		"op2_ID":op2_ID,

@@ -16,14 +16,16 @@ router.get('/:op1_ID/:op2_ID/:date_from/:date_to', async (req,res) => {
                 + currentdate.getSeconds();
 	const { op1_ID,op2_ID,date_from,date_to } = req.params;
 	try {
-	const result_count = await client.query("SELECT COUNT(*) AS count  FROM passes INNER JOIN stations USING (station_id) INNER JOIN tags USING (tag_id) WHERE stations.provider_id=$1 AND tags.provider_id=$2 AND passes.pass_timestamp BETWEEN $3 AND $4",[op1_ID,op2_ID,date_from,date_to]);
-	const result_charge = await client.query("SELECT SUM(pass_rate) passes_cost FROM passes INNER JOIN stations USING (station_id) INNER JOIN tags USING (tag_id) WHERE stations.provider_id=$1 AND tags.provider_id=$2 AND passes.pass_timestamp BETWEEN $3 AND $4",[op1_ID,op2_ID,date_from,date_to]);
+	const result_count = await client.query('SELECT COUNT(*) AS count  FROM "Passes" INNER JOIN "Stations" USING ("StationID") INNER JOIN "Tags" USING ("TagID") WHERE "Stations"."ProviderID"=$1 AND "Tags"."ProviderID"=$2 AND "Timestamp" BETWEEN $3 AND $4',[op1_ID,op2_ID,date_from,date_to]);
+	const result_charge = await client.query('SELECT SUM("Rate") AS passes_cost FROM "Passes" INNER JOIN "Stations" USING ("StationID") INNER JOIN "Tags" USING ("TagID") WHERE "Stations"."ProviderID"=$1 AND "Tags"."ProviderID"=$2 AND "Timestamp" BETWEEN $3 AND $4',[op1_ID,op2_ID,date_from,date_to]);
+	const result = await client.query('SELECT "Tags"."ProviderID" FROM "Passes" INNER JOIN "Stations" USING ("StationID") INNER JOIN "Tags" USING ("TagID") WHERE "Stations"."ProviderID"=$1 AND "Tags"."ProviderID"=$2 AND "Timestamp" BETWEEN $3 AND $4',[op1_ID,op2_ID,date_from,date_to]);
 	const response = {
 		"op1_ID":op1_ID,
 		"op2_ID":op2_ID,
 		"RequestTimestamp":timestamp,
 		"PeriodFrom":date_from,
 		"PeriodTo":date_to,
+		"ALL":result.rows,
 		"NumberOfPasses":result_count.rows[0].count,
 		"PassesCost":result_charge.rows[0].passes_cost,
 	}

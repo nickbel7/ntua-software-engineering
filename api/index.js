@@ -1,9 +1,9 @@
 const express = require('express'),
- app = express(),	// represents the API
- PORT = 9103,	// defines the port that the API listens to
+ app = express(),
+ port = 9103,
  router = express.Router();
-
-app.use(express.json())	//middleware to handle json body requests
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
 
 global.DATA = 1;
 const baseurl = '/interoperability/api';
@@ -16,17 +16,13 @@ const adminhealth = require('./admin/healthcheck'),
 	passescost = require('./PassesCost'),
 	chargesby = require('./ChargesBy');
 
-
-// CHECK IF API IS FIRED UP
-app.listen(
-	PORT, 
-	() => console.log(`app listening at: https://localohost:${port}${baseurl}`)
-)
-
-// ENDPOINTS
 app.get(baseurl, (req,res) => {
-	res.status(200).send('DIODE IS UP :)');
+	res.end('DIODE IS UP!');
 });
+
+app.listen(port, () => {
+    console.log(`app listening at: https://localhost:${port}${baseurl}`)
+  });
 
 app.use(baseurl+'/admin/healthcheck', adminhealth);
 app.use(baseurl+'/admin/resetpasses', resetpasses);
