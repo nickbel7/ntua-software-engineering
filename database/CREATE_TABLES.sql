@@ -1,91 +1,88 @@
 /* =====================
 	CREATE ENTITIES 
 ======================*/
-CREATE TABLE IF NOT EXISTS "Providers" (
-	"ProviderID" serial PRIMARY KEY,
-	"ProviderName" varchar (50),
-	"ProviderAbbr" varchar (50)
+CREATE TABLE IF NOT EXISTS providers (
+	provider_id serial PRIMARY KEY,
+	provider_name varchar (50),
+	provider_abbr varchar (50)
 );
 
-CREATE TABLE IF NOT EXISTS "Tags" (
-	"TagID" serial PRIMARY KEY,
-	"ProviderID" int,
-	"TagCode" varchar (50),
-	"VehicleCode" varchar (50),
-	"VehicleLicenceYear" varchar (10)
+CREATE TABLE IF NOT EXISTS tags (
+	tag_id serial PRIMARY KEY,
+	provider_id int,
+	tag_code varchar (50),
+	vehicle_code varchar (50),
+	vehicle_licence_year varchar (10)
 );
 
-CREATE TABLE IF NOT EXISTS "Passes" (
-	"PassID" serial PRIMARY KEY,
-	"TagID" int,
-	"StationID" int,
-	"Timestamp" timestamp,
-	"Rate" float (20),
-	"Type" varchar (20)
+CREATE TABLE IF NOT EXISTS passes (
+	pass_id serial PRIMARY KEY,
+	tag_id int,
+	station_id int,
+	pass_code varchar (50),
+	pass_time timestamp,
+	rate float (20),
+	pass_type varchar (20)
 );
 
-CREATE TABLE IF NOT EXISTS "Stations" (
-	"StationID" serial PRIMARY KEY,
-	"ProviderID" int,
-	"StationName" varchar (50),
-	"StationNameAbbr" varchar (50),
-	"Geoloc" varchar (255)
+CREATE TABLE IF NOT EXISTS stations (
+	station_id serial PRIMARY KEY,
+	provider_id int,
+	station_name varchar (50),
+	station_name_abbr varchar (50),
+	geoloc varchar (255)
 );
 
 
 /* =====================
 	CREATE USERS AND ROLES 
 ======================*/
-CREATE TABLE IF NOT EXISTS "Users" (
-	"UserID" serial PRIMARY KEY,
-	"Username" varchar (100),
-	"PasswordHash" varchar (100),
-	"Email" varchar (50)
+CREATE TABLE IF NOT EXISTS users (
+	user_id serial PRIMARY KEY,
+	username varchar (100),
+	password_hash varchar (100),
+	email varchar (50)
 );
 
-CREATE TABLE IF NOT EXISTS "UserGroups" (
-	"UserGroupID" serial PRIMARY KEY,
-	"UserGroupName" varchar (50)
+CREATE TABLE IF NOT EXISTS user_groups (
+	user_group_id serial PRIMARY KEY,
+	users_group_name varchar (50)
 );
 
-CREATE TABLE IF NOT EXISTS "UserGroupUsers" (
-	"UserID" int NOT NULL,
-	"UserGroupID" int NOT NULL,
-	PRIMARY KEY ("UserID", "UserGroupID"),
-	FOREIGN KEY ("UserID")
-		REFERENCES "Users" ("UserID"),
-	FOREIGN KEY ("UserGroupID")
-		REFERENCES "UserGroups" ("UserGroupID")
+CREATE TABLE IF NOT EXISTS user_group_users (
+	user_id int NOT NULL,
+	user_group_id int NOT NULL,
+	PRIMARY KEY (user_id, user_group_id),
+	FOREIGN KEY (user_id)
+		REFERENCES users (user_id),
+	FOREIGN KEY (user_group_id)
+		REFERENCES user_groups (user_group_id)
 );
 
 
 /* =====================
 	ADD ALL FOREIGN KEYS
 ======================*/
-ALTER TABLE "Tags" DROP CONSTRAINT IF EXISTS fk_providers;
-ALTER TABLE "Tags"
+ALTER TABLE tags DROP CONSTRAINT IF EXISTS fk_providers;
+ALTER TABLE tags
 ADD CONSTRAINT fk_providers
-FOREIGN KEY ("ProviderID")
-REFERENCES "Providers" ("ProviderID");
+FOREIGN KEY (provider_id)
+REFERENCES providers (provider_id);
 
-ALTER TABLE "Passes" DROP CONSTRAINT IF EXISTS fk_tags;
-ALTER TABLE "Passes"
+ALTER TABLE passes DROP CONSTRAINT IF EXISTS fk_tags;
+ALTER TABLE passes
 ADD CONSTRAINT fk_tags
-FOREIGN KEY ("TagID")
-REFERENCES "Tags" ("TagID");
+FOREIGN KEY (tag_id)
+REFERENCES tags (tag_id);
 
-ALTER TABLE "Passes" DROP CONSTRAINT IF EXISTS fk_stations;
-ALTER TABLE "Passes"
+ALTER TABLE passes DROP CONSTRAINT IF EXISTS fk_stations;
+ALTER TABLE passes
 ADD CONSTRAINT fk_stations
-FOREIGN KEY ("StationID")
-REFERENCES "Stations" ("StationID");
+FOREIGN KEY (station_id)
+REFERENCES stations (station_id);
 
-ALTER TABLE "Stations" DROP CONSTRAINT IF EXISTS fk_providers;
-ALTER TABLE "Stations"
+ALTER TABLE stations DROP CONSTRAINT IF EXISTS fk_providers;
+ALTER TABLE stations
 ADD CONSTRAINT fk_providers
-FOREIGN KEY ("ProviderID")
-REFERENCES "Providers" ("ProviderID");
-
-
-
-
+FOREIGN KEY (provider_id)
+REFERENCES providers (provider_id);

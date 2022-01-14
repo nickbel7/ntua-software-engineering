@@ -1,22 +1,22 @@
--- CREATE VIEW "PassesTransposed" AS
+CREATE VIEW passes_transposed AS
 SELECT 
-pr."ProviderID" AS "Provider1ID",
-pr."ProviderName" AS "Provider1Name",
-pr2."ProviderID" AS "Provider2ID",
-pr2."ProviderName" AS "Provider2Name",
-pa."PassCode",
-pa."Timestamp",
-pa."Rate" AS Charge,
-1 AS "Status"
-FROM "Passes" AS pa
+pr.provider_id AS provider1_id,
+pr.provider_name AS provider1_name,
+pr2.provider_id AS provider2_id,
+pr2.provider_name AS provider2_name,
+pa.pass_code,
+pa.pass_time,
+pa.rate AS charge,
+1 AS pass_status
+FROM passes AS pa
 -- PROVIDER 1
-INNER JOIN "Stations" AS st
-ON st."StationID" = pa."StationID"
-INNER JOIN "Providers" AS pr
-ON pr."ProviderID" = st."ProviderID"
+INNER JOIN stations AS st
+ON st.station_id = pa.station_id
+INNER JOIN providers AS pr
+ON pr.provider_id = st.provider_id
 -- PROVIDER 2
-INNER JOIN "Tags" AS ta
-ON ta."TagID" = pa."TagID"
-INNER JOIN "Providers" AS pr2
-ON pr2."ProviderID" = ta."ProviderID"
-WHERE pa."Type" LIKE '%away%'
+INNER JOIN tags AS ta
+ON ta.tag_id = pa.tag_id
+INNER JOIN providers AS pr2
+ON pr2.provider_id = ta.provider_id
+WHERE pa.pass_type LIKE '%away%'
