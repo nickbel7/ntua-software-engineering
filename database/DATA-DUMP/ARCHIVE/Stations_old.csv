@@ -1,4 +1,4 @@
-station_id,provider_id,station_name,station_name_abbr,geoloc
+StationID,ProviderID,StationName,StationNameAbbr,Geoloc
 1,1,"aodos tolls station 00
 ",AO00,
 2,1,"aodos tolls station 01
