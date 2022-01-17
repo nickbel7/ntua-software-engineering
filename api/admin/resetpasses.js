@@ -1,21 +1,24 @@
 const express = require('express');
-const { dbconnect } = require('/home/konsi/Desktop/api/connect.js');
 const router = express.Router();
+const pool = require('../connect.js');
 
-router.post('/', (req,res) => {
-	(async () => {
-  		const client = await dbconnect();
-		await client.query("TRUNCATE TABLE passes", (err) => {
-        		if (err == undefined) {
-				res.json({status:"OK"});
-				console.log("table passes truncated");
+router.post('/', function(req, res) {
+	pool.connect(function(err, client) {
+		if(err) {
+                	res.status(500).json({status:"failed"});
+                     	console.log("connection failed", err);
+             	}
+		client.query("TRUNCATE TABLE passes", function(err) {
+        		if(err) {
+				res.status(500).json({status:"failed"});
+                                console.log("table passes not truncated", err);
 			}
 			else {
-				res.json({status:"failed"});
-				console.log("table passes not truncated", err);
+				res.status(200).json({status:"OK"});
+                                console.log("table passes truncated");
 			}
 		});
-	})();
+	});
 });
 
 module.exports = router;

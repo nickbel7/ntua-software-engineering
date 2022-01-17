@@ -1,32 +1,35 @@
 const express = require('express');
-const fs = require('fs');
-const { dbconnect } = require('/home/konsi/Desktop/api/connect.js');
 const router = express.Router();
+const fs = require('fs');
+const pool = require('../connect.js');
 
-var sql = fs.readFileSync('tags.sql').toString();
+var sql = fs.readFileSync('./admin/tags.sql').toString();
 
-router.post('/', (req,res) => {
-        (async () => {
-                const client = await dbconnect();
-                await client.query("TRUNCATE TABLE tags CASCADE", (err1) => {
-                        if (err1 == undefined) {
-                                client.query(sql, (err2) => {
-                                if (err2 == undefined) {
-                                        res.json({status:"OK"});
-                                        console.log("table tags(vehicles) reset");
-                                }
-                                else {
-                                        res.json({status:"failed"}).send(err2);
-                                        console.log("table tags(vehicles) truncated", err2);
-                                }
-                                });
+router.post('/', function(req, res) {
+        pool.connect(function(err, client) {
+		if(err) {
+                        res.status(500).json({status:"failed"});
+                        console.log("connection failed", err);
+                }
+                client.query("TRUNCATE TABLE tags CASCADE", function(err) {
+                        if (err) {
+				res.status(500).json({status:"failed"});
+                                console.log("table tags(vehicles) not truncated", err);
                         }
                         else {
-                                res.json({status:"failed"}).send(err1);
-                                console.log("table tags(vehicles) not truncated", err1);
+				client.query(sql, function(err) {
+                                	if (err) {
+						res.status(500).json({status:"failed"});
+                                                console.log("table tags(vehicles) truncated", err);
+                                	}
+                                	else {
+						res.status(200).json({status:"OK"});
+                                                console.log("table tags(vehicles) reset");
+                                	}
+                                });
                         }
                 });
-        })();
+        });
 });
 
 module.exports = router;

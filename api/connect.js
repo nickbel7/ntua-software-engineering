@@ -1,13 +1,13 @@
-const { Client } = require('pg');
+const pg = require('pg');
+require('dotenv').config();
 
-module.exports.dbconnect = async () => {
-  	const client = new Client({
-		host: "localhost",
-    		port: 5432,
-    		user: "postgres",
-    		password: "postgres",
-    		database: "diode",
-  	});
-  	await client.connect();
-  	return client;
-};
+const config = {
+  	user: "postgres",
+	host: "localhost",
+  	database: "diode",
+  	password: "postgres",
+  	port: 5432,
+}
+
+const pool = new pg.Pool(config);
+module.exports = pool;

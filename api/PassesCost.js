@@ -1,38 +1,50 @@
 const express = require('express')
 const router = express.Router();
-const client = require('./connection.js');
-const app = express();
-const bodyParser = require("body-parser");
-app.use(bodyParser.json());
+const pool = require('./connect.js');
+const { parse } = require('json2csv');
 
-client.connect();
-router.get('/:op1_ID/:op2_ID/:date_from/:date_to', async (req,res) => {
-	var currentdate = new Date(); 
-	var timestamp = currentdate.getFullYear() + "-"
-                + (currentdate.getMonth()+1)  + "-" 
-                + currentdate.getDate() + " "  
-                + currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":" 
-                + currentdate.getSeconds();
-	const { op1_ID,op2_ID,date_from,date_to } = req.params;
-	try {
-	const result_count = await client.query("SELECT COUNT(*) AS count  FROM passes INNER JOIN stations USING (station_id) INNER JOIN tags USING (tag_id) WHERE stations.provider_id=$1 AND tags.provider_id=$2 AND passes.pass_timestamp BETWEEN $3 AND $4",[op1_ID,op2_ID,date_from,date_to]);
-	const result_charge = await client.query("SELECT SUM(pass_rate) passes_cost FROM passes INNER JOIN stations USING (station_id) INNER JOIN tags USING (tag_id) WHERE stations.provider_id=$1 AND tags.provider_id=$2 AND passes.pass_timestamp BETWEEN $3 AND $4",[op1_ID,op2_ID,date_from,date_to]);
-	const response = {
-		"op1_ID":op1_ID,
-		"op2_ID":op2_ID,
-		"RequestTimestamp":timestamp,
-		"PeriodFrom":date_from,
-		"PeriodTo":date_to,
-		"NumberOfPasses":result_count.rows[0].count,
-		"PassesCost":result_charge.rows[0].passes_cost,
-	}
-	res.json(response);
-	}
-	catch (err) {
-		console.log(err);
-	}
- 
- 	client.end;
+router.get('/:op1_ID/:op2_ID/:date_from/:date_to', function(req, res) {
+	const date = new Date();
+        const req_timestamp = date.getFullYear() +"-"+ (date.getMonth()+1) +"-"+ date.getDate() +" "+ date.getHours() +":"+ date.getMinutes() +":"+ date.getSeconds();
+	const { op1_ID, op2_ID, date_from, date_to } = req.params;
+	pool.connect(function(err, client) {
+                if(err) {
+                        res.status(500).json({status:"failed"});
+                        console.log("connection failed", err);
+                }
+		client.query("SELECT COUNT(charge) AS total_passes, cast(SUM(charge) as DECIMAL(10,2)) AS total_charge FROM passes_transposed WHERE pass_type LIKE '%away%' AND provider1_id = $1 AND provider2_id = $2 AND pass_time BETWEEN $3 AND $4", [op1_ID, op2_ID, date_from, date_to], function(err, result) {
+			if(err) {
+                                res.status(400).json({status:"failed"});
+                                console.log("passes cost query bad request", err);
+                        }
+                        else if(!result.rows.length) {
+                                res.status(402).json({status:"failed"});
+                                console.log("passes cost query no data");
+                        }
+                        else {
+				const response = {
+                                        "op1_ID":op1_ID,
+                                        "op2_ID":op2_ID,
+                                        "RequestTimestamp":req_timestamp,
+                                        "PeriodFrom":date_from,
+                                        "PeriodTo":date_to,
+                                        "NumberOfPasses":result.rows[0].total_passes,
+                                        "PassesCost":result.rows[0].total_charge,
+                            	}
+                                if(req.query.format === "csv") {
+					const data_flds = ['op1_ID', 'op2_ID', 'RequestTimestamp', 'PeriodFrom', 'PeriodTo', 'NumberOfPasses', 'PassesCost'];
+                                        const data_opts = { data_flds };
+                                        var data = parse(response, data_opts);
+                                        res.status(200).send(data);
+                                        console.log("passes cost query success (csv)");
+                                }
+                                else {
+                                        res.status(200).json(response);
+                                        console.log("passes cost query success (json)");
+                                }
+                        }	
+		});
+	});
 });
+
 module.exports = router;
