@@ -5,8 +5,8 @@ const express = require('express'),
 const https = require('https');
 const fs = require('fs');
 
-const key = fs.readFileSync('./localhost.decrypted.key');
-const cert = fs.readFileSync('./localhost.crt');
+const key = fs.readFileSync('./certificates/localhost.decrypted.key');
+const cert = fs.readFileSync('./certificates/localhost.crt');
 const server = https.createServer({ key, cert }, app);
 
 const baseurl = '/interoperability/api';
