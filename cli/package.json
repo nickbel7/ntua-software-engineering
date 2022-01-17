@@ -1,0 +1,21 @@
+{
+  "name": "se2138",
+  "version": "1.0.0",
+  "description": "tolls project",
+  "main": "index.js",
+  "bin": {
+    "runme": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yiannos Paranomos",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "chalk": "^5.0.0",
+    "commander": "^8.3.0",
+    "conf": "^10.1.1",
+    "process": "^0.11.10"
+  }
+}
