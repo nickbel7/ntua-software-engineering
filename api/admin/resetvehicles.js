@@ -3,7 +3,7 @@ const router = express.Router();
 const fs = require('fs');
 const pool = require('../connect.js');
 
-var sql = fs.readFileSync('./admin/tags.sql').toString();
+var sql = fs.readFileSync('../database/DATA-DUMP/WITH_SQL/tags.sql').toString();
 
 router.post('/', function(req, res) {
         pool.connect(function(err, client) {
@@ -11,7 +11,8 @@ router.post('/', function(req, res) {
                         res.status(500).json({status:"failed"});
                         console.log("connection failed", err);
                 }
-                client.query("TRUNCATE TABLE tags CASCADE", function(err) {
+                client.query("TRUNCATE TABLE tags CASCADE", function(err) 
+                {
                         if (err) {
 				res.status(500).json({status:"failed"});
                                 console.log("table tags(vehicles) not truncated", err);
