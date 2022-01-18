@@ -9,6 +9,8 @@ const pacall=require('./commands/PassesAnalysis.js');
 const pccall=require('./commands/PassesCost.js');
 const cbcall=require('./commands/ChargesBy.js');
 
+const apu=require('./adminCommands/PassesUpd.js');
+
 program 
     .version('1.0.0')
     .description('Command Line Interface Software Engineering NTUA 2022');
@@ -16,7 +18,6 @@ program
 //CLI options for basic operations:
 program
     .command('passesperstation')
-    .description('Give ALL the below parameters to see the corresponding \'Passes Analysis\'')
     .showHelpAfterError('add --help for additional information')
     .helpOption('-h, --help', 'Display help for command')
     .requiredOption('--station <stationID>',    'Give a stationID                 ->     {xxx}')
@@ -29,7 +30,6 @@ program
 
 program 
     .command('passesanalysis')
-    .description('Give ALL the below parameters to see the corresponding \'Passes Analysis\'')
     .showHelpAfterError('add --help for additional information')
     .helpOption('-h, --help', 'Display help for command')
     .requiredOption('--op1 <op1>',              'Give the op ID from operator 1   ->     {1, x}')
@@ -44,7 +44,6 @@ program
 
 program 
     .command('passescost')
-    .description('Give ALL the below parameters to see the corresponding \'Passes Cost\'')
     .showHelpAfterError('add --help for additional information')
     .helpOption('-h, --help', 'Display help for command')
     .requiredOption('--op1 <op1>',              'Give the op ID from operator 1   ->     {1, x}')
@@ -58,7 +57,6 @@ program
 
 program
     .command('chargesby')
-    .description('Give ALL the below parameters to see the corresponding \'Charges by\'')
     .showHelpAfterError('add --help for additional information')
     .helpOption('-h, --help', 'Display help for command')
     .requiredOption('--op1 <op1>',              'Give the op ID from operator 1   ->     {1, x}')
@@ -70,6 +68,18 @@ program
     });
 
 // CLI options for admin users
+program 
+    .command('admin')
+    .showHelpAfterError('add --help for additional information')
+    .helpOption('-h, --help', 'Display help for command')
+    .option('--passesupd',               'Don\'t give any argument           ->      {}')
+    .option('--source',                  'Give the path to the file         ->      \"/data/newpassesXXXX.csv\"')
+    .action((options)=>{
+        if(options.passesupd!=undefined && options.source==undefined)
+            console.error('Argument \'--pasesupd\' must be followes by \'--source\'');
+        else if(options.passesupd!=undefined)
+            apu(options.source);
+    });
 
 
 
