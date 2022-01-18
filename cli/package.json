@@ -4,7 +4,7 @@
   "description": "tolls project",
   "main": "index.js",
   "bin": {
-    "runme": "index.js"
+    "se2138": "index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
