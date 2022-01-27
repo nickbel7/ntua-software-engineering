@@ -1,7 +1,7 @@
-const express = require('express');
+const express = require('../../backend/node_modules/express');
 const router = express.Router();
 const fs = require('fs');
-const pool = require('../connect.js');
+const pool = require('../../backend/connect');
 
 var sql = fs.readFileSync('../database/DATA-DUMP/WITH_SQL/tags.sql').toString();
 

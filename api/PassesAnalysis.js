@@ -1,7 +1,7 @@
-const express = require('express')
+const express = require('../backend/node_modules/express')
 const router = express.Router();
-const pool = require('./connect.js');
-const { parse } = require('json2csv');
+const pool = require('../backend/connect');
+const { parse } = require('../backend/node_modules/json2csv');
 
 router.get('/:op1_ID/:op2_ID/:date_from/:date_to', function(req, res) {
 	const date = new Date();
