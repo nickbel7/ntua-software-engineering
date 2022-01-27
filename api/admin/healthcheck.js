@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require('../../backend/node_modules/express');
 const router = express.Router();
-const pool = require('../connect.js');
+const pool = require('../../backend/connect');
 
 router.get('/', function(req, res) {
 	pool.connect(function(err, client) {
