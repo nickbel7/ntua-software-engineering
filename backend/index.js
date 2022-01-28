@@ -46,8 +46,11 @@ webserver.listen(80, () => {
 	console.log('Web-server is up and runing at: https://localhost:80');
 });
 
+webapp.use(express.static(path.join(__dirname, '..') + "/frontend/assets"));
+webapp.use(express.static(path.join(__dirname, '..') + "/frontend/bundles"));
+
 webapp.get("/", (req, res) => {
-	res.sendFile(path.join(__dirname, '..') + "/frontend/index.html");
+	res.sendFile(path.join(__dirname, '..') + "/frontend/templates/index.html");
 });
 
 module.exports = router;
