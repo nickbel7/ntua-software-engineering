@@ -4,3 +4,7 @@
 
 /backend/node_modules
 # /backend/package-lock.json
+
+/frontend/bundles/node_modules 
+/frontend/bundles/package-lock.json
+#frontend files ingored
