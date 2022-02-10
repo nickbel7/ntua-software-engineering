@@ -47,7 +47,7 @@ webserver.listen(80, () => {
 });
 
 webapp.use(express.static(path.join(__dirname, '..') + "/frontend/assets"));
-webapp.use(express.static(path.join(__dirname, '..') + "/frontend/bundles"));
+webapp.use(express.static(path.join(__dirname, '..') + "/frontend/bundles/dist"));
 
 webapp.get("/", (req, res) => {
 	res.sendFile(path.join(__dirname, '..') + "/frontend/templates/index.html");
