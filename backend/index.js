@@ -6,6 +6,7 @@ const express = require('express'),
  router = express.Router();
 const https = require('https');
 const fs = require('fs');
+const cors = require('cors');
 
 const key = fs.readFileSync('./certificates/localhost.decrypted.key');
 const cert = fs.readFileSync('./certificates/localhost.crt');
@@ -30,6 +31,9 @@ server.listen(port, () => {
 	console.log(`app listening at: https://localhost:${port}${baseurl}`);
 });
 
+// MIDDLEWARE FOR CROSS-ORIGIN REQUESTS
+app.use(cors());
+
 // RESTFUL API ROUTES
 app.use(baseurl+'/admin/healthcheck', adminhealth);
 app.use(baseurl+'/admin/resetpasses', resetpasses);
@@ -39,7 +43,6 @@ app.use(baseurl+'/PassesPerStation', passesperstation);
 app.use(baseurl+'/PassesAnalysis', passesanalysis);
 app.use(baseurl+'/PassesCost', passescost);
 app.use(baseurl+'/ChargesBy', chargesby);
-
 
 // WEB SERVER (for frontend)
 webserver.listen(80, () => {
