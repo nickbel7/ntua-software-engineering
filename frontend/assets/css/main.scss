@@ -1,3 +1,52 @@
+// Bootstrap
+@import "../../bundles/node_modules/bootstrap/scss/bootstrap";
+
+// VARIABLES
+@import "variables";
+@import "nav";
+@import "statistics";
+
 body {
-    background-color: yellow; 
+    // background-color: $primary; 
+    display: flex;
+    flex-direction: row;
+}
+
+* {
+    font-size: 1.1rem;
+}
+
+header {
+    height: 100vh;
+    nav {
+        height: 100%;
+        width: 12em;
+        background-color: aqua;
+    }
+}
+
+main {
+    padding: 1em;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 9em;
+    height: 5em;
+    background-color: $primary;
+    padding: 0.5em 1em;
+    border-radius: $border-radius;
+    position: relative;
+    box-shadow: 0 0 20px -5px black;
+    p {
+        color:lightgrey;
+        margin-bottom: 0;
+        font-size: 0.8em;
+    }
+    h4 {
+        color: white;
+        font-size: 1.8em;
+    }
 }
