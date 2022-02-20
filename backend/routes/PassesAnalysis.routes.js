@@ -3,7 +3,7 @@ const express = require('express')
 const router = express.Router();
 
 router.get("/", function(req, res) {
-	res.render(path.join(__dirname, '../..') + "/frontend/templates/passsanalysis.html");
+	res.render(path.join(__dirname, '../..') + "/frontend/templates/passesanalysis.html");
 });
 
 module.exports = router;

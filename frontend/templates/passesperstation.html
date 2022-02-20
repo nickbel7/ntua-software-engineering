@@ -2,5 +2,70 @@
 
 {% block content %}
 
+<section class="page-header">
+
+    <div class="header-container">
+        <form class="inputs-container">
+            <div class="input-div">
+                <label class="input-desc">Station Name :</label>
+                <input class="input-field" type="text">
+            </div>
+            <div class="input-div">
+                <label class="input-desc">Date From :</label>
+                <input class="input-field" type="date">
+            </div>
+            <div class="input-div">
+                <label class="input-desc">Date to :</label>
+                <input class="input-field" type="date">
+            </div>
+            <button class="btn">Submit</button>
+        </form>
+        <div class="stats-container">
+            <div class="stat-cards-container">
+                <div class="stat-box">
+                    <p>Total Revenue</p>
+                    <h4 id="pps-total-revenue"></h4>
+                </div>
+                <div class="stat-box">
+                    <p>Total Home</p>
+                    <h4 id="pps-total-home"></h4>
+                </div>
+                <div class="stat-box">
+                    <p>Total Away</p>
+                    <h4 id="pps-total-away"></h4>
+                </div>
+            </div>
+            <div class="info-container">
+                <p id="pps-results-count"><b>Results : </b></p>
+                <p id="pps-timestamp"><b>Last Update : </b></p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="page-content">
+    <div class="table-container">
+        <h5 class="table-header">
+            Passes Per Station
+        </h5>
+        <table class="" cellpadding="0" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>A/A</th>
+                    <th>Provider</th>
+                    <th>Pass ID</th>
+                    <th>Vehicle</th>
+                    <th>Charge</th>
+                    <th>Type</th>
+                    <th>Timestamp</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="pps"></tbody>
+        </table>
+    </div>
+</section>
+
 
 {% endblock %}
