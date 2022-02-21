@@ -1,40 +1,52 @@
-const express = require('express')
+const express = require('../backend/node_modules/express')
 const router = express.Router();
-const client = require('./connection.js');
-const app = express();
-const bodyParser = require("body-parser");
-app.use(bodyParser.json());
+const pool = require('../backend/connect');
+const { parse } = require('../backend/node_modules/json2csv');
 
-client.connect();
-router.get('/:op1_ID/:op2_ID/:date_from/:date_to', async (req,res) => {
-	var currentdate = new Date(); 
-	var timestamp = currentdate.getFullYear() + "-"
-                + (currentdate.getMonth()+1)  + "-" 
-                + currentdate.getDate() + " "  
-                + currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":" 
-                + currentdate.getSeconds();
-	const { op1_ID,op2_ID,date_from,date_to } = req.params;
-	try {
-	const result_count = await client.query('SELECT COUNT(*) AS count  FROM "Passes" INNER JOIN "Stations" USING ("StationID") INNER JOIN "Tags" USING ("TagID") WHERE "Stations"."ProviderID"=$1 AND "Tags"."ProviderID"=$2 AND "Timestamp" BETWEEN $3 AND $4',[op1_ID,op2_ID,date_from,date_to]);
-	const result_charge = await client.query('SELECT SUM("Rate") AS passes_cost FROM "Passes" INNER JOIN "Stations" USING ("StationID") INNER JOIN "Tags" USING ("TagID") WHERE "Stations"."ProviderID"=$1 AND "Tags"."ProviderID"=$2 AND "Timestamp" BETWEEN $3 AND $4',[op1_ID,op2_ID,date_from,date_to]);
-	const result = await client.query('SELECT "Tags"."ProviderID" FROM "Passes" INNER JOIN "Stations" USING ("StationID") INNER JOIN "Tags" USING ("TagID") WHERE "Stations"."ProviderID"=$1 AND "Tags"."ProviderID"=$2 AND "Timestamp" BETWEEN $3 AND $4',[op1_ID,op2_ID,date_from,date_to]);
-	const response = {
-		"op1_ID":op1_ID,
-		"op2_ID":op2_ID,
-		"RequestTimestamp":timestamp,
-		"PeriodFrom":date_from,
-		"PeriodTo":date_to,
-		"ALL":result.rows,
-		"NumberOfPasses":result_count.rows[0].count,
-		"PassesCost":result_charge.rows[0].passes_cost,
-	}
-	res.json(response);
-	}
-	catch (err) {
-		console.log(err);
-	}
- 
- 	client.end;
+router.get('/:op1_ID/:op2_ID/:date_from/:date_to', function(req, res) {
+	const date = new Date();
+    const req_timestamp = date.getFullYear() +"-"+ (date.getMonth()+1) +"-"+ date.getDate() +" "+ date.getHours() +":"+ date.getMinutes() +":"+ date.getSeconds();
+	const { op1_ID, op2_ID, date_from, date_to } = req.params;
+	pool.connect(function(err, client) {
+		if(err) {
+			res.status(500).json({status:"failed"});
+			console.log("connection failed", err);
+		}
+
+		client.query("SELECT COUNT(charge) AS total_passes, cast(SUM(charge) as DECIMAL(10,2)) AS total_charge FROM passes_transposed WHERE pass_type LIKE '%away%' AND provider1_id = $1 AND provider2_id = $2 AND pass_time BETWEEN $3 AND $4", [op1_ID, op2_ID, date_from, date_to], function(err, result) 
+		{
+			if(err) {
+				res.status(400).json({status:"failed"});
+				console.log("Passes cost query bad request", err);
+			}
+			else if(!result.rows.length) {
+				res.status(402).json({status:"failed"});
+				console.log("Passes cost query no data");
+			}
+			else {
+				const response = {
+					"op1_ID":op1_ID,
+					"op2_ID":op2_ID,
+					"RequestTimestamp":req_timestamp,
+					"PeriodFrom":date_from,
+					"PeriodTo":date_to,
+					"NumberOfPasses":result.rows[0].total_passes,
+					"PassesCost":result.rows[0].total_charge,
+				}
+				if(req.query.format === "csv") {
+					const data_flds = ['op1_ID', 'op2_ID', 'RequestTimestamp', 'PeriodFrom', 'PeriodTo', 'NumberOfPasses', 'PassesCost'];
+					const data_opts = { data_flds };
+					var data = parse(response, data_opts);
+					res.status(200).send(data);
+					console.log("Passes cost query successful (csv)");
+				}
+				else {
+					res.status(200).json(response);
+					console.log("Passes cost query successful (json)");
+				}
+			}	
+		});
+	});
 });
+
 module.exports = router;
