@@ -49,74 +49,6 @@ background: transparent;
 background: #555; 
 }
 
-.stat-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 25em;
-    background-color: $frame-color;
-    padding: 0.5em 1em;
-    border-radius: $border-radius;
-    position: relative;
-    box-shadow: 0 0 10px -5px black;
-    .stat-header {
-        display: flex;
-        flex-direction: row;
-        .stat-text {
-            p {
-                color: $font-color-2;
-                font-weight: 500;
-                margin-bottom: 0;
-                font-size: 0.8em;
-            }
-            h4 {
-                color: $font-color;
-                font-size: 1.8em;
-            }
-            h6 {
-                color: $secondary;
-                opacity: 0.4;
-            }
-        }
-        .stat-dropdown {
-            padding: 0.5em 11em;
-            select {
-                background-color: $nav-color;
-                border-color: $frame-border; 
-                border-radius: 10px;
-                padding: 0.4em;   
-                color: $font-color-2;
-            }
-        }
-    }
-    
-}
-
-.passes-stat-box {
-    .dropdown {
-        padding-top: 1em; 
-    }
-}
-
-.graph-box {
-    position: relative; 
-    width: 100%;
-    display: grid; 
-    grid-template-columns: 1fr 2fr; 
-    padding: 1em 1em;
-    grid-gap: 1em;
-    min-height: 15em;
-}
-
-.box {
-    position: relative;
-    background-color: white;
-    width: 100%;
-    box-shadow: 0 0 10px -5px black;
-    border-radius: 20px;
- }
-
-
 .page-header {
     height: 10em;
 }
@@ -137,11 +69,12 @@ background: #555;
         width: 100%;
         height: 4em;
         display: flex;
-        justify-content: space-evenly;
+        justify-content: flex-start;
         align-items: flex-start;
         ///////////////////
         .input-div {
             position: relative;
+            margin-right: 2em;
         }
         .input-desc {
             color: $font-color-2;
@@ -153,13 +86,16 @@ background: #555;
         }
         .input-field {
             height: 2em;
-            background-color: $nav-color;
+            background-color: $primary;
             border-radius: 5px;
-            color: white;
+            color: $font-color-dark;
             padding: 0.2em 0.4em;
             font-size: 0.9rem;
             border: 0;
-            position: relative;
+        }
+        ::-webkit-calendar-picker-indicator {
+            filter: invert(0.8);
+            cursor: pointer;
         }
         button {
             height: 2em;
@@ -176,13 +112,36 @@ background: #555;
         display: flex;
         flex-direction: row;
         .stat-cards-container {
-            width: 50%;
+            width: 65%;
             display: inherit;
             align-items: flex-end;
-            justify-content: space-between;
+            justify-content: flex-start;
+            .stat-box {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                min-width: 9em;
+                height: 5em;
+                background-color: $frame-color;
+                padding: 0.5em 1em;
+                margin-right: 2em;
+                border-radius: $border-radius;
+                position: relative;
+                box-shadow: 0 0 10px -5px black;
+                p {
+                    color: $font-color-2;
+                    font-weight: 500;
+                    margin-bottom: 0;
+                    font-size: 0.8em;
+                }
+                h4 {
+                    color: $font-color;
+                    font-size: 1.8em;
+                }
+            }
         }
         .info-container {
-            width: 50%;
+            width: 35%;
             display: inherit;
             flex-direction: column;
             justify-content: flex-end;
@@ -273,11 +232,4 @@ background: #555;
 }
 .away-flag {
     background-color: rgb(209, 171, 46);
-}
-
-@media (max-width: 961px) {
-    .graph-box {
-        grid-template-columns: 2fr 1fr;
-        height: auto; 
-    }
 }

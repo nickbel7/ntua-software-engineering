@@ -1,0 +1,42 @@
+.stat-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25em;
+    background-color: $frame-color;
+    padding: 0.5em 1em;
+    border-radius: $border-radius;
+    position: relative;
+    box-shadow: 0 0 10px -5px black;
+    .stat-header {
+        display: flex;
+        flex-direction: row;
+        .stat-text {
+            p {
+                color: $font-color-2;
+                font-weight: 500;
+                margin-bottom: 0;
+                font-size: 0.8em;
+            }
+            h4 {
+                color: $font-color;
+                font-size: 1.8em;
+            }
+            h6 {
+                color: $secondary;
+                opacity: 0.4;
+            }
+        }
+        .stat-dropdown {
+            padding: 0.5em 11em;
+            select {
+                background-color: $nav-color;
+                border-color: $frame-border; 
+                border-radius: 10px;
+                padding: 0.4em;   
+                color: $font-color-2;
+            }
+        }
+    }
+    
+}
