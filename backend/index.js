@@ -49,7 +49,7 @@ const adminhealth = require('../api/admin/healthcheck'),
 	passesanalysis = require('../api/PassesAnalysis'),
 	passescost = require('../api/PassesCost'),
 	chargesby = require('../api/ChargesBy'),
-	uploaddata = require('../api/UploadData');
+	uploaddata = require('../api/admin/UploadData');
 const { homedir } = require('os');
 
 // RESTFUL API ROUTES

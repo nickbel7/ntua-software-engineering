@@ -1,0 +1,259 @@
+{
+	"info": {
+		"_postman_id": "e5284ad3-31f1-42f6-b6ba-75e6a4d39192",
+		"name": "API Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PassesPerStation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"PassesPerStation Calculation Success\", function () {\r",
+							"    pm.expect(jsonData.NumberOfPasses).to.eql(pm.variables.get(\"number_of_passes_per_station\"));\r",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/PassesPerStation/{{station_id}}/{{date_from}}/{{date_to}}?format=json",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"PassesPerStation",
+						"{{station_id}}",
+						"{{date_from}}",
+						"{{date_to}}"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PassesAnalysis",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"PassesAnalysis Calculation Success\", function () {\r",
+							"    pm.expect(jsonData.NumberOfPasses).to.eql(pm.variables.get(\"number_of_passes_analysis\"));\r",
+							" });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/PassesAnalysis/{{op1_ID}}/{{op2_ID}}/{{date_from}}/{{date_to}}?format=json",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"PassesAnalysis",
+						"{{op1_ID}}",
+						"{{op2_ID}}",
+						"{{date_from}}",
+						"{{date_to}}"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PassesCost",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/PassesCost/{{op1_ID}}/{{op2_ID}}/{{date_from}}/{{date_to}}?format=json",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"PassesCost",
+						"{{op1_ID}}",
+						"{{op2_ID}}",
+						"{{date_from}}",
+						"{{date_to}}"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ChargesBy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"var count = Object.keys(jsonData.PassesList).length;\r",
+							"\r",
+							"var list = pm.variables.get(\"passes_list\");\r",
+							"for (let i=0; i<count; i++ ){\r",
+							"    pm.test(\"Total Charges Owed By Other Operators\", function () {\r",
+							"        pm.expect(jsonData.PassesList[i].total_charge).to.eql(list[i]);\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/ChargesBy/{{op1_ID}}/{{date_from}}/{{date_to}}?format=json",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"ChargesBy",
+						"{{op1_ID}}",
+						"{{date_from}}",
+						"{{date_to}}"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					"pm.test(\"Response time is less than 200ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(200);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://localhost:9103/interoperability/api",
+			"type": "string"
+		},
+		{
+			"key": "admin_base_url",
+			"value": "https://localhost:9103/interoperability/api/admin",
+			"type": "string"
+		},
+		{
+			"key": "op1_ID",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "op2_ID",
+			"value": "2",
+			"type": "string"
+		},
+		{
+			"key": "date_from",
+			"value": "20190101",
+			"type": "string"
+		},
+		{
+			"key": "date_to",
+			"value": "20190201",
+			"type": "string"
+		},
+		{
+			"key": "passes_cost",
+			"value": "\"11.20\"",
+			"type": "string"
+		},
+		{
+			"key": "passes_list",
+			"value": "[\"22.40\",\"11.20\",\"25.20\",\"11.20\",\"28.00\",\"14.00\"]",
+			"type": "string"
+		},
+		{
+			"key": "station_id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "number_of_passes_per_station ",
+			"value": "5",
+			"type": "string"
+		},
+		{
+			"key": "number_of_passes_analysis",
+			"value": "4",
+			"type": "string"
+		}
+	]
+}

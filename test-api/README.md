@@ -2,5 +2,5 @@
 
 Περιεχόμενα:
 
-- API tests
+- JSON File of API Testing Collection (Postman)
 
