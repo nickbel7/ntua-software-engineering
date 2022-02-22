@@ -1,101 +1,136 @@
-#! /usr/bin/env node
-
+#! /usr/bin/env node --no-warnings
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 
 const commander = require("commander");
+const axios = require ('axios');
 const program = new commander.Command();
 
-// console.log("HELLO");
+const ppscall=require('./commands/PassesPerStation.js');
+const pacall=require('./commands/PassesAnalysis.js');
+const pccall=require('./commands/PassesCost.js');
+const cbcall=require('./commands/ChargesBy.js');
+
+const apu=require('./adminCommands/PassesUpd.js');
 
 program 
     .version('1.0.0')
     .description('Command Line Interface Software Engineering NTUA 2022');
 
+//CLI options for basic operations:
 program
     .command('passesperstation')
-    .alias('pps')
-    .requiredOption('--station <stationID>', 'Give a stationID')
-    .requiredOption('--datefrom <datefrom>', 'Give a starting date')
-    .requiredOption('--dateto <dateto>', 'Give ending date')
-    .requiredOption('--format <format>', 'Give the required format')
-    .action((options)=>{
-        console.log("ok")
+    .showHelpAfterError('add --help for additional information')
+    .helpOption('-h, --help', 'Display help for command')
+    .requiredOption('--station <stationID>',    'Give a stationID                 ->     {xxx}')
+    .requiredOption('--datefrom <datefrom>',    'Give a starting date             ->     YYYY-MM-DD%20HH-MM-SS')
+    .requiredOption('--dateto <dateto>',        'Give ending date                 ->     YYYY-MM-DD%20HH-MM-SS')
+    .requiredOption('--format <format>',        'Give the required format         ->     {json, csv}')
+    .action((options)=> {
+        ppscall(options.station, options.datefrom, options.dateto, options.format);
     });
 
 program 
     .command('passesanalysis')
-    .alias('pa')
-    .requiredOption('--op1 <operatorID1>', 'Give the operator ID from Operator 1')
-    .requiredOption('--op2 <operatorID2>', 'Give the operator ID from Operator 2')
-    .requiredOption('--datefrom <datefrom>', 'Give a starting date')
-    .requiredOption('--dateto <dateto>', 'Give ending date')
-    .requiredOption('--format <format>', 'Give the required format')
-    .action((options)=>{
-        console.log("ok1")
+    .showHelpAfterError('add --help for additional information')
+    .helpOption('-h, --help', 'Display help for command')
+    .requiredOption('--op1 <op1>',              'Give the op ID from operator 1   ->     {1, x}')
+    .requiredOption('--op2 <op2>',              'Give the op ID from operator 2   ->     {1, x}')
+    .requiredOption('--datefrom <datefrom>',    'Give a starting date             ->     YYYY-MM-DD%20HH-MM-SS')
+    .requiredOption('--dateto <dateto>',        'Give ending date                 ->     YYYY-MM-DD%20HH-MM-SS')
+    .requiredOption('--format <format>',        'Give the required format         ->     {json, csv}')
+    .action((options)=> {
+        pacall(options.op1, options.op2, options.datefrom, options.dateto, options.format);
     });
+    
 
 program 
     .command('passescost')
-    .alias('pc')
-    .requiredOption('--op1 <operatorID1>', 'Give the operator ID from Operator 1')
-    .requiredOption('--op2 <operatorID2>', 'Give the operator ID from Operator 2')
-    .requiredOption('--datefrom <datefrom>', 'Give a starting date')
-    .requiredOption('--dateto <dateto>', 'Give ending date')
-    .requiredOption('--format <format>', 'Give the required format')
-    .action((options)=>{
-        console.log("ok2")
+    .showHelpAfterError('add --help for additional information')
+    .helpOption('-h, --help', 'Display help for command')
+    .requiredOption('--op1 <op1>',              'Give the op ID from operator 1   ->     {1, x}')
+    .requiredOption('--op2 <op2>',              'Give the op ID from operator 2   ->     {1, x}')
+    .requiredOption('--datefrom <datefrom>',    'Give a starting date             ->     YYYY-MM-DD%20HH-MM-SS')
+    .requiredOption('--dateto <dateto>',        'Give ending date                 ->     YYYY-MM-DD%20HH-MM-SS')
+    .requiredOption('--format <format>',        'Give the required format         ->     {json, csv}')
+    .action((options)=> {
+        pccall(options.op1, options.op2, options.datefrom, options.dateto, options.format);
     });
 
 program
-    .command('chargeby')
-    .alias('cb')
-    .requiredOption('--op1 <operatorID1>', 'Give the operator ID from Operator 1')
-    .requiredOption('--datefrom <datefrom>', 'Give a starting date')
-    .requiredOption('--dateto <dateto>', 'Give ending date')
-    .requiredOption('--format <format>', 'Give the required format')
-    .action((options)=>{
-        console.log("ok2")
+    .command('chargesby')
+    .showHelpAfterError('add --help for additional information')
+    .helpOption('-h, --help', 'Display help for command')
+    .requiredOption('--op1 <op1>',              'Give the op ID from operator 1   ->     {1, x}')
+    .requiredOption('--datefrom <datefrom>',    'Give a starting date             ->     YYYY-MM-DD%20HH-MM-SS')
+    .requiredOption('--dateto <dateto>',        'Give ending date                 ->     YYYY-MM-DD%20HH-MM-SS')
+    .requiredOption('--format <format>',        'Give the required format         ->     {json, csv}')
+    .action((options)=> {
+        cbcall(options.op1, options.datefrom, options.dateto, options.format);
     });
 
+//CLI "admin" commands
 program 
     .command('healthcheck')
-    .alias('hc')
-    .description('Confirms end-to-end connectivity')
-    .action(function(cmdObj){
-        console.log("ok3")
+    .showHelpAfterError('add --help for additional information')
+    .helpOption('-h, --help', 'Display help for command')
+    .action(function(){
+        let url='https://localhost:9103/interoperability/api/admin/healthcheck';
+        axios.get(url).then( resp=>{
+            console.log(resp.data);
+        })
     });
 
 program 
     .command('resetpasses')
-    .alias('rp')
-    .description('Resests table passes.sql')
-    .action(function(cmdObj){
-        console.log("ok3")
+    .showHelpAfterError('add --help for additional information')
+    .helpOption('-h, --help', 'Display help for command')
+    .action(function(){
+        let url='https://localhost:9103/interoperability/api/admin/resetpasses';
+        axios.post(url).then( resp=>{
+            console.log(resp.data);
+        })
     });
 
 program 
     .command('resetvehicles')
-    .alias('rv')
-    .description('Resests table vehicles.sql')
-    .action(function(cmdObj){
-        console.log("ok3")
+    .showHelpAfterError('add --help for additional information')
+    .helpOption('-h, --help', 'Display help for command')
+    .action(function(){
+        let url='https://localhost:9103/interoperability/api/admin/resetvehicles';
+        axios.post(url).then( resp=>{
+            console.log(resp.data);
+        })
     });
-
 program
     .command('resetstations')
-    .alias('rs')
-    .description('Resests table stations.sql')
-    .action(function(cmdObj){
-        console.log("ok4")
-    }); 
-
+    .showHelpAfterError('add --help for additional information')
+    .helpOption('-h, --help', 'Display help for command')
+    .action(function(){
+        let url='https://localhost:9103/interoperability/api/admin/resetstations';
+        axios.post(url).then( resp=>{
+            console.log(resp.data);
+        })
+    });
+// CLI options for admin users
 program 
     .command('admin')
-    .alias('ad')
-    .description('insert data')
-    .action(function(cmdObj){
-        console.log("ok4")
+    .showHelpAfterError('add --help for additional information')
+    .helpOption('-h, --help', 'Display help for command')
+    .option('--passesupd',               'Don\'t give any argument           ->      {}')
+    .option('--source',                  'Give the path to the file         ->      \"/data/newpassesXXXX.csv\"')
+    .action((options)=>{
+        if(options.passesupd!=undefined && options.source==undefined)
+            console.error('Argument \'--pasesupd\' must be followes by \'--source\'');
+        else if(options.passesupd!=undefined)
+            apu(options.source);
     });
+
+
+
+
+
+
+
 
 
 

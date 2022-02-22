@@ -1,0 +1,50 @@
+
+BASIC OPERATIONS:
+-----------------
+PASSES ANALYSIS
+se2138 passesanalysis --op1 1 --op2 3 --datefrom 20190101 --dateto 20190201 --format json
+https://localhost:9103/interoperability/api/PassesAnalysis/2/3/2021-06-13%2010:18:00/2021-12-13%2010:18:00
+|
+|
+PASSES COST
+se2138 passescost --op1 2 --op2 3 --datefrom 2021-06-13%2010:18:00 --dateto 2021-12-13%2010:18:00 --format json
+https://localhost:9103/interoperability/api/PassesCost/1/3/2021-06-13%2010:18:00/2021-12-13%2010:18:00
+|
+|
+CHARGES BY
+se2138 chargesby --op1 1 --datefrom 2021-06-13%2010:18:00 --dateto 2021-12-13%2010:18:00 --format json
+https://localhost:9103/interoperability/api/ChargesBy/1/2021-06-13%2010:18:00/2021-12-13%2010:18:00
+|
+|
+PASSES PER STATION
+se2138 passesperstation --station 1 --datefrom 2021-06-13%2010:18:00 --dateto 2021-12-13%2010:18:00 --format json
+!!!!https://localhost:9103/interoperability/api/PassesPerStation/1/2021-06-13%2010:18:00/2021-12-13%2010:18:00
+https://localhost:9103/interoperability/api/PassesPerStation/AO01/20190101/20220101?format=json
+=================================================================================================================
+
+ADMIN OPERATIONS:
+-----------------
+se2138 healthcheck
+https://localhost:9103/interoperability/api/admin/healthcheck
+|
+|
+se2138 resetstations
+!!!!!!!!https://localhost:9103/interoperability/api/admin/resetstations
+|
+|
+se2138 resetvehicles
+!!!!!!!!https://localhost:9103/interoperability/api/admin/resetvehicles
+|
+|
+se2138 resetpasses
+!!!!!!!!https://localhost:9103/interoperability/api/admin/resetpasses
+
+==========================================================================================================================
+
+ADDITIONAL OPERATIONS
+---------------------
+
+
+
+
+
