@@ -2,7 +2,7 @@
 BASIC OPERATIONS:
 -----------------
 PASSES ANALYSIS
-se2138 passesanalysis --op1 2 --op2 3 --datefrom 2021-06-13%2010:18:00 --dateto 2021-12-13%2010:18:00 --format json
+se2138 passesanalysis --op1 1 --op2 3 --datefrom 20190101 --dateto 20190201 --format json
 https://localhost:9103/interoperability/api/PassesAnalysis/2/3/2021-06-13%2010:18:00/2021-12-13%2010:18:00
 |
 |

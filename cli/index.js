@@ -1,4 +1,4 @@
-#! /usr/bin/env node
+#! /usr/bin/env node --no-warnings
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 
 const commander = require("commander");
@@ -86,7 +86,7 @@ program
     .helpOption('-h, --help', 'Display help for command')
     .action(function(){
         let url='https://localhost:9103/interoperability/api/admin/resetpasses';
-        axios.get(url).then( resp=>{
+        axios.post(url).then( resp=>{
             console.log(resp.data);
         })
     });
@@ -97,7 +97,7 @@ program
     .helpOption('-h, --help', 'Display help for command')
     .action(function(){
         let url='https://localhost:9103/interoperability/api/admin/resetvehicles';
-        axios.get(url).then( resp=>{
+        axios.post(url).then( resp=>{
             console.log(resp.data);
         })
     });
@@ -107,7 +107,7 @@ program
     .helpOption('-h, --help', 'Display help for command')
     .action(function(){
         let url='https://localhost:9103/interoperability/api/admin/resetstations';
-        axios.get(url).then( resp=>{
+        axios.post(url).then( resp=>{
             console.log(resp.data);
         })
     });
