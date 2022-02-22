@@ -48,7 +48,8 @@ const adminhealth = require('../api/admin/healthcheck'),
 	passesperstation = require('../api/PassesPerStation'),
 	passesanalysis = require('../api/PassesAnalysis'),
 	passescost = require('../api/PassesCost'),
-	chargesby = require('../api/ChargesBy');
+	chargesby = require('../api/ChargesBy'),
+	uploaddata = require('../api/admin/UploadData');
 const { homedir } = require('os');
 
 // RESTFUL API ROUTES
@@ -60,6 +61,7 @@ app.use(baseurl+'/PassesPerStation', passesperstation);
 app.use(baseurl+'/PassesAnalysis', passesanalysis);
 app.use(baseurl+'/PassesCost', passescost);
 app.use(baseurl+'/ChargesBy', chargesby);
+app.use(baseurl+'/UploadData', uploaddata);
 
 // ROUTES FOR FRONTEND
 webapp.use(express.static(path.join(__dirname, '..') + "/frontend/assets"));
@@ -68,7 +70,6 @@ webapp.use(express.static(path.join(__dirname, '..') + "/frontend/bundles/dist")
 webapp.use("/", require('./routes/Home.routes.js'));
 webapp.use("/chargesby", require('./routes/ChargesBy.routes.js'));
 webapp.use("/passesanalysis", require('./routes/PassesAnalysis.routes.js'));
-webapp.use("/passescost", require('./routes/PassesCost.routes.js'));
 webapp.use("/passesperstation", require('./routes/PassesPerStation.routes.js'));
 
 module.exports = router;

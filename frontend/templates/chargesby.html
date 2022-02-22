@@ -1,7 +1,58 @@
 {% extends "base.html" %}
-
 {% block content %}
 
+<section class="page-header">
 
+    <div class="header-container">
+        <form class="inputs-container">
+            <div class="input-div">
+                <label class="input-desc">Date From :</label>
+                <input id="cb-start-date" class="input-field" type="date">
+            </div>
+            <div class="input-div">
+                <label class="input-desc">Date to :</label>
+                <input id="cb-end-date" class="input-field" type="date">
+            </div>
+            <button id="cb-submit-btn" class="btn" type="button">Submit</button>
+        </form>
+        <div class="stats-container">
+            <div class="stat-cards-container">
+                <div class="stat-box">
+                    <p>Total Being Owed</p>
+                    <h4 id="cb-total-revenue"></h4>
+                </div>
+                <div class="stat-box">
+                    <p>Most Lucrative Provider</p>
+                    <h4 id="cb-max-provider"></h4>
+                </div>
+            </div>
+            <div class="info-container">
+                <p id="cb-results-count"><b>Results : </b></p>
+                <p id="cb-timestamp"><b>Last Update : </b></p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="page-content">
+    <div class="table-container">
+        <h5 class="table-header">
+            Charges by others
+        </h5>
+        <table class="" cellpadding="0" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Provider Name</th>
+                    <th>Provider Abbr</th>
+                    <th>Total Passes</th>
+                    <th>Total Cost</th>
+                </tr>
+            </thead>
+            <tbody id="cb-table"></tbody>
+        </table>
+    </div>
+</section>
 
 {% endblock %}

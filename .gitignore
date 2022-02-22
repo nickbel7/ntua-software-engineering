@@ -1,9 +1,11 @@
-### npm dependencies
+# npm dependencies
 backend/node_modules
 backend/package-lock.json
 
-#frontend files ingored
+# frontend files ingored
 frontend/bundles/node_modules 
 frontend/bundles/package-lock.json
 
 backend/connect.js
+
+.env
