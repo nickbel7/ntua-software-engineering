@@ -48,7 +48,8 @@ const adminhealth = require('../api/admin/healthcheck'),
 	passesperstation = require('../api/PassesPerStation'),
 	passesanalysis = require('../api/PassesAnalysis'),
 	passescost = require('../api/PassesCost'),
-	chargesby = require('../api/ChargesBy');
+	chargesby = require('../api/ChargesBy'),
+	uploaddata = require('../api/UploadData');
 const { homedir } = require('os');
 
 // RESTFUL API ROUTES
@@ -60,6 +61,7 @@ app.use(baseurl+'/PassesPerStation', passesperstation);
 app.use(baseurl+'/PassesAnalysis', passesanalysis);
 app.use(baseurl+'/PassesCost', passescost);
 app.use(baseurl+'/ChargesBy', chargesby);
+app.use(baseurl+'/UploadData', uploaddata);
 
 // ROUTES FOR FRONTEND
 webapp.use(express.static(path.join(__dirname, '..') + "/frontend/assets"));
