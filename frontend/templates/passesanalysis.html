@@ -1,7 +1,71 @@
 {% extends "base.html" %}
-
 {% block content %}
 
+<section class="page-header">
 
+    <div class="header-container">
+        <form class="inputs-container">
+            <div class="input-div">
+                <label class="input-desc">Provider Name :</label>
+                <select class="input-field" name="" id="pa-provider2-name">
+                    <option value="1">Aodos</option>
+                    <option value="2">Gefyra</option>
+                    <option value="3">Egnatia</option>
+                    <option value="4">Kentriki Odos</option>
+                    <option value="5">Moreas</option>
+                    <option value="6">Nea Odos</option>
+                    <option value="7">Olympia Odos</option>
+                </select>
+            </div>
+            <div class="input-div">
+                <label class="input-desc">Date From :</label>
+                <input id="pa-start-date" class="input-field" type="date">
+            </div>
+            <div class="input-div">
+                <label class="input-desc">Date to :</label>
+                <input id="pa-end-date" class="input-field" type="date">
+            </div>
+            <button id="pa-submit-btn" class="btn" type="button">Submit</button>
+        </form>
+        <div class="stats-container">
+            <div class="stat-cards-container">
+                <div class="stat-box">
+                    <p>Total Being Owed</p>
+                    <h4 id="pa-total-revenue"></h4>
+                </div>
+                <div class="stat-box">
+                    <p>Most Visited Station</p>
+                    <h4 id="pa-max-station"></h4>
+                </div>
+            </div>
+            <div class="info-container">
+                <p id="pa-results-count"><b>Results : </b></p>
+                <p id="pa-timestamp"><b>Last Update : </b></p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="page-content">
+    <div class="table-container">
+        <h5 class="table-header">
+            Passes Analysis
+        </h5>
+        <table class="" cellpadding="0" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>A/A</th>
+                    <th>Station</th>
+                    <th>Pass ID</th>
+                    <th>Vehicle</th>
+                    <th>Charge</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody id="pa-table"></tbody>
+        </table>
+    </div>
+</section>
 
 {% endblock %}
