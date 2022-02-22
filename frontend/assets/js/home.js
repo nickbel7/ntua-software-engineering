@@ -26,3 +26,4 @@ import $ from '../../bundles/node_modules/jquery';
     
 //     // $("#test").html(data.PassesCost);
 // }
+

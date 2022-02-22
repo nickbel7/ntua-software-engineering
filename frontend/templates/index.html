@@ -3,8 +3,36 @@
 {% block content %}
 
 <div class="stat-box">
-  <p>Total Passes</p>
-  <h4>244</h4>
+  <div class = "stat-header">
+  <div class = stat-text>
+    <p>Passes Today</p>
+    <h4>244</h4>
+    <h6>75 yesterday</h6>
+  </div>
+  <div class = "stat-dropdown">
+    <label>
+      <select>
+          <option selected> Pick a station </option>
+          <option>Attiki Odos</option>
+          <option>Lamia</option>
+          <option>Thes</option>
+      </select>
+  </label>
+  </div>
 </div>
+  
+  <canvas id="bar-graph"></canvas>
+</div>
+
+<!-- Add Charts  -->
+<div class="graph-box">
+  <div class="box"> 
+    <!-- <canvas id="bar-graph"></canvas> -->
+  </div>
+  <div class="box">
+    <canvas id="line-graph"></canvas>
+  </div>
+</div>
+
 
 {% endblock %}

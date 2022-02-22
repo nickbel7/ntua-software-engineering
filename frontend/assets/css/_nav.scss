@@ -21,13 +21,13 @@ aside {
         }
         ul {
             list-style-type: none;
-            padding: 1em 0;
+            // padding: 1em 0;
             width: 100%;
             height: auto;
             li {    
                 padding: 0.2em 0;
                 width: 80%;
-                border-radius: 0 20px 20px 0;
+                border-radius: 10px;
                 padding-left: 1em;
                 margin: 0.4em 0;
               
@@ -37,6 +37,8 @@ aside {
                 &:hover {
                     cursor: pointer;
                     border: 1px solid #ADFF28; 
+                    background-color: #ADFF2814;
+                    padding-bottom: 0.5em;
                 }
                 a {
                     text-decoration: none;
@@ -55,6 +57,9 @@ aside {
                 }
             }
         }
+        .user_prop {
+            padding: 1em 0;
+        }
         hr {
             height: 1px;
             color: white;
@@ -64,7 +69,7 @@ aside {
             display: flex; 
             justify-content: space-around;
             border-radius: 0.5em;
-            margin: 0 5.1em 0 1em;
+            margin: 0 6.1em 0 1em;
             text-decoration: none;
             font-size: 13px;
             font-weight: bold;

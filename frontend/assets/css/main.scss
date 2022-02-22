@@ -53,24 +53,69 @@ background: #555;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 9em;
-    height: 5em;
+    width: 25em;
     background-color: $frame-color;
     padding: 0.5em 1em;
     border-radius: $border-radius;
     position: relative;
     box-shadow: 0 0 10px -5px black;
-    p {
-        color: $font-color-2;
-        font-weight: 500;
-        margin-bottom: 0;
-        font-size: 0.8em;
+    .stat-header {
+        display: flex;
+        flex-direction: row;
+        .stat-text {
+            p {
+                color: $font-color-2;
+                font-weight: 500;
+                margin-bottom: 0;
+                font-size: 0.8em;
+            }
+            h4 {
+                color: $font-color;
+                font-size: 1.8em;
+            }
+            h6 {
+                color: $secondary;
+                opacity: 0.4;
+            }
+        }
+        .stat-dropdown {
+            padding: 0.5em 11em;
+            select {
+                background-color: $nav-color;
+                border-color: $frame-border; 
+                border-radius: 10px;
+                padding: 0.4em;   
+                color: $font-color-2;
+            }
+        }
     }
-    h4 {
-        color: $font-color;
-        font-size: 1.8em;
+    
+}
+
+.passes-stat-box {
+    .dropdown {
+        padding-top: 1em; 
     }
 }
+
+.graph-box {
+    position: relative; 
+    width: 100%;
+    display: grid; 
+    grid-template-columns: 1fr 2fr; 
+    padding: 1em 1em;
+    grid-gap: 1em;
+    min-height: 15em;
+}
+
+.box {
+    position: relative;
+    background-color: white;
+    width: 100%;
+    box-shadow: 0 0 10px -5px black;
+    border-radius: 20px;
+ }
+
 
 .page-header {
     height: 10em;
@@ -228,4 +273,11 @@ background: #555;
 }
 .away-flag {
     background-color: rgb(209, 171, 46);
+}
+
+@media (max-width: 961px) {
+    .graph-box {
+        grid-template-columns: 2fr 1fr;
+        height: auto; 
+    }
 }
