@@ -12,7 +12,7 @@ router.get('/:op_ID/:date_from/:date_to', function(req, res) {
 			res.status(500).json({status:"failed"});
 			console.log("connection failed", err);
 		}
-		client.query("SELECT provider2_name AS provider_name, COUNT(charge) AS total_passes, cast(SUM(charge) as DECIMAL(10,2)) AS total_charge FROM passes_transposed WHERE provider1_id = $1 AND pass_time BETWEEN $2 AND $3 group by provider2_name", [op_ID, date_from, date_to], function(err, result) 
+		client.query("SELECT provider2_name AS provider_name, COUNT(charge) AS total_passes, cast(SUM(charge) as DECIMAL(10,2)) AS total_charge FROM passes_transposed WHERE pass_type LIKE '%away%' AND provider1_id = $1 AND pass_time BETWEEN $2 AND $3 group by provider2_name", [op_ID, date_from, date_to], function(err, result) 
 		{
 			if(err) {
 				res.status(400).json({status:"failed"});
