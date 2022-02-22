@@ -68,7 +68,6 @@ webapp.use(express.static(path.join(__dirname, '..') + "/frontend/bundles/dist")
 webapp.use("/", require('./routes/Home.routes.js'));
 webapp.use("/chargesby", require('./routes/ChargesBy.routes.js'));
 webapp.use("/passesanalysis", require('./routes/PassesAnalysis.routes.js'));
-webapp.use("/passescost", require('./routes/PassesCost.routes.js'));
 webapp.use("/passesperstation", require('./routes/PassesPerStation.routes.js'));
 
 module.exports = router;
