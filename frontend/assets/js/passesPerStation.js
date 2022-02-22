@@ -1,4 +1,5 @@
 import $ from '../../bundles/node_modules/jquery';
+// Passes Per Station --> pps
 
 var ppsStationName = 'AO01';
 var ppsStartDate = '20190101';
@@ -62,7 +63,7 @@ function onSuccessPPS(data) {
         }
     }
 
-    $('#pps-total-revenue').html(Math.round(total_revenue)+" \u20AC");
+    $('#pps-total-revenue').html(Math.round(total_revenue*100)/100+" \u20AC");
     $('#pps-total-home').html(total_home);
     $('#pps-total-away').html(total_away);
     $('#pps-results-count').html("<b>Results : </b>" + passes.length);
