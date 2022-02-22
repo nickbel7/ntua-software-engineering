@@ -1,4 +1,5 @@
 import $ from '../../bundles/node_modules/jquery';
+// Passes Analysis --> pa
 
 var paProvider1Id = '1';
 var paProvider2Id = '2';
@@ -61,14 +62,10 @@ function onSuccessPA(data) {
         }
     }
 
-    console.log(most_visited);
+    // calculates station with most
     const max_station = Object.entries(most_visited).reduce((a, most_visited) => a[1] > most_visited[1] ? a : most_visited)[0]
-    // console.log(result);
-    // var  = 0;
-    // for (var key in most_visited) {
-    //     max_station = max(max_passes, most_visited[key])
-    // }
-    $('#pa-total-revenue').html(Math.round(total_revenue)+" \u20AC");
+
+    $('#pa-total-revenue').html(Math.round(total_revenue*100)/100+" \u20AC");
     $('#pa-max-station').html(max_station);
     $('#pa-results-count').html("<b>Results : </b>" + passes.length);
     $('#pa-timestamp').html("<b>Last Update : </b>" + data.RequestTimestamp);
