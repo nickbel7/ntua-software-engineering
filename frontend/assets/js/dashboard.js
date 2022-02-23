@@ -4,10 +4,11 @@ import $ from '../../bundles/node_modules/jquery';
 var cbStartDate = '20190101';
 var cbEndDate = '20220101';
 var cbProvider1Id = 1; 
-const chart_ctx = document.getElementById('bar-graph').getContext('2d');
 var bar_graph; 
 var cost_bar_graph; 
 var fav_bar_graph; 
+
+const chart_ctx = document.getElementById('bar-graph').getContext('2d');
 const cost_chart = document.getElementById('tc-bar-graph').getContext('2d');
 const fav_chart = document.getElementById('fav-bar-graph').getContext('2d');
 
@@ -158,7 +159,7 @@ function create_cost_bar_chart(cost,labels1) {
 
 function create_pie_chart(cost,labels1) {
     fav_bar_graph = new Chart(fav_chart, {
-    type: 'pie',
+    type: 'polarArea',
     data: {
         labels: labels1,
         datasets: [{
