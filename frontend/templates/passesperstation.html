@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block content %}
 
 <section class="page-header">
@@ -8,17 +7,17 @@
         <form class="inputs-container">
             <div class="input-div">
                 <label class="input-desc">Station Name :</label>
-                <input class="input-field" type="text">
+                <input id="pps-station-id" class="input-field" placeholder="ex. AO01" type="text">
             </div>
             <div class="input-div">
                 <label class="input-desc">Date From :</label>
-                <input class="input-field" type="date">
+                <input id="pps-start-date" class="input-field" type="date">
             </div>
             <div class="input-div">
                 <label class="input-desc">Date to :</label>
-                <input class="input-field" type="date">
+                <input id="pps-end-date" class="input-field" type="date">
             </div>
-            <button class="btn">Submit</button>
+            <button id="pps-submit-btn" class="btn" type="button">Submit</button>
         </form>
         <div class="stats-container">
             <div class="stat-cards-container">
@@ -62,7 +61,7 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody id="pps"></tbody>
+            <tbody id="pps-table"></tbody>
         </table>
     </div>
 </section>

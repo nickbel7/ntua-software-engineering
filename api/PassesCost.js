@@ -7,7 +7,7 @@ router.get('/:op1_ID/:op2_ID/:date_from/:date_to', function(req, res) {
 	const date = new Date();
     const req_timestamp = date.getFullYear() +"-"+ (date.getMonth()+1) +"-"+ date.getDate() +" "+ date.getHours() +":"+ date.getMinutes() +":"+ date.getSeconds();
 	const { op1_ID, op2_ID, date_from, date_to } = req.params;
-	pool.connect(function(err, client) {
+	pool.connect(function(err, client, release) {
 		if(err) {
 			res.status(500).json({status:"failed"});
 			console.log("connection failed", err);
@@ -46,6 +46,7 @@ router.get('/:op1_ID/:op2_ID/:date_from/:date_to', function(req, res) {
 				}
 			}	
 		});
+		release();
 	});
 });
 

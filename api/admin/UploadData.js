@@ -3,11 +3,10 @@ const router = express.Router();
 const fs = require('fs');
 const pool = require('../../backend/connect');
 
-var sql = "select * from passes";
-// fs.readFileSync('../cli/data/data.sql').toString();
+var sql = "Select * from passes"
 
 router.post('/', function(req, res) {
-	pool.connect(function(err, client) {
+	pool.connect(function(err, client, release) {
 		if(err) {
 			res.status(500).json({status:"failed"});
 			console.log("connection failed", err);
@@ -22,7 +21,7 @@ router.post('/', function(req, res) {
 				console.log("data inserted");
 			}
 		});
-			
+		release();	
 	});
 });
 
