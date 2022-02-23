@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Yiannos Paranomos",
+  "author": "Yiannos Paranomos, Elina Syrri(2nd writer)",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0",

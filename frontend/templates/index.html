@@ -1,10 +1,44 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<div class="stat-box">
-  <p>Total Passes</p>
-  <h4>244</h4>
+<div class = "dash-main">
+  <div class = "stat-dropdown">
+    <div class="input-div">
+      <label class="input-desc">Date From :</label>
+      <input id="cb-start-date" class="input-field" type="date">
+    </div>
+    <div class="input-div">
+      <label class="input-desc">Date to :</label>
+      <input id="cb-end-date" class="input-field" type="date">
+    </div>
+    <button id="cb-submit-btn" class="btn" type="button">Submit</button>
+  </div>
+  <div class = "graphs">
+    <div class="stat-container">
+      <div class = "stat-header">
+        <div class = stat-text>
+          <p id = "cb-results-count">Τotal Passes:</p>
+        </div>
+      </div>
+      <canvas id="bar-graph"></canvas>
+    </div> 
+    <div class="stat-container">
+      <div class = "stat-header">
+        <div class = stat-text>
+          <p id = "cb-total-cost-count">Total Cost: </p>
+        </div>
+        <canvas id="tc-bar-graph"></canvas>
+      </div>
+    </div>
+    <div class="stat-container">
+      <div class = "stat-header">
+        <div class = stat-text>
+          <p id = "cb-fav-result">Most Favorite: </p>
+        </div>
+        <canvas id="fav-bar-graph"></canvas>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

@@ -3,7 +3,7 @@ const router = express.Router();
 const fs = require('fs');
 const pool = require('../../backend/connect');
 
-var sql = fs.readFileSync('data.sql').toString();
+var sql = "Select * from passes"
 
 router.post('/', function(req, res) {
 	pool.connect(function(err, client, release) {

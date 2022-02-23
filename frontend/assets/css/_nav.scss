@@ -9,28 +9,36 @@ aside {
         padding: 1em 0;
         display: flex;
         flex-direction: column;
-        img {
-            object-fit: contain;
-            height: 5em;
-            padding: 0 0.5em;
+        .imagelink {
+            display: flex; 
+            justify-content: center;
+            padding: 1em 0;
+            img {
+                object-fit: contain;
+                height: 5em;
+                padding: 0 0.5em;
+            }
         }
         ul {
             list-style-type: none;
-            padding: 2em 0;
+            // padding: 1em 0;
             width: 100%;
-            height: 100%;
-            li {
+            height: auto;
+            li {    
                 padding: 0.2em 0;
                 width: 80%;
-                border-radius: 0 20px 20px 0;
+                border-radius: 10px;
                 padding-left: 1em;
                 margin: 0.4em 0;
-                &.active {
-                    background-color: $primary;
-
+              
+                &:active {
+                    color: #ADFF28 ;
                 }
                 &:hover {
                     cursor: pointer;
+                    border: 1px solid #ADFF28; 
+                    background-color: #ADFF2814;
+                    padding-bottom: 0.5em;
                 }
                 a {
                     text-decoration: none;
@@ -40,9 +48,54 @@ aside {
                     &:hover {
                         color: $secondary;
                     }
+                    &:focus {
+                        color: $secondary;
+                    }
+                }
+                .logoimg {
+                    width: 1.4em;
                 }
             }
-            
+        }
+        .user_prop {
+            padding: 1em 0;
+        }
+        hr {
+            height: 100px;
+            color: white;
+            margin: 0 1em;
+        }
+        .user_id {
+            display: flex; 
+            justify-content: space-around;
+            border-radius: 0.5em;
+            margin: 0 6.1em 0 1em;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            color: white;
+            padding: 1em 0;
+            align-items: center;
+            margin-top: auto;
+            margin-bottom: 1em;
+            transition: all .3s;
+            border: 1px solid #807d7d;
+            box-shadow: 6px 6px 12px #111111,
+             -6px -6px 12px #4c4c4c;
+            img { 
+                width: 1.4em;
+                height: 1.4em;
+                border-radius: 11px;
+                color: white; 
+            }
+        }
+        .user_id:hover {
+            border: 1px solid #ADFF28;
+            cursor: pointer;
+        }
+        .user_id:active {
+            box-shadow: 4px 4px 12px #c5c5c5,
+                        -4px -4px 12px #ffffff;
         }
     }
 }
