@@ -6,7 +6,7 @@
 		"op2_ID": "2",
 		"passes_cost": "11.20",
 		"passes_list": ["22.40","11.20","25.20","11.20","28.00","14.00"],
-		"station_id":"1",
+		"station_id":"AO00",
 		"number_of_passes_per_station": 5,
 		"number_of_passes_analysis": 4
 	},
@@ -17,7 +17,7 @@
 		"op2_ID": "1",
 		"passes_cost": "8.70",
 		"passes_list": ["8.70","13.80","12.00","3.50","14.80","7.25"],
-		"station_id":"21",
+		"station_id":"GF00",
 		"number_of_passes_per_station": 122,
 		"number_of_passes_analysis": 4
 	},
@@ -28,7 +28,7 @@
 		"op2_ID": "2",
 		"passes_cost": "6.30",
 		"passes_list": ["3.75","1.25","6.30","3.45","7.55","11.90"],
-		"station_id":"36",
+		"station_id":"KO01",
 		"number_of_passes_per_station": 16,
 		"number_of_passes_analysis": 3
 	},
@@ -39,7 +39,7 @@
 		"op2_ID": "1",
 		"passes_cost": "16.40",
 		"passes_list": ["16.40","2.00","5.00","13.65","1.25","6.20"],
-		"station_id":"2",
+		"station_id":"AO01",
 		"number_of_passes_per_station": 9,
 		"number_of_passes_analysis": 7
 	}
