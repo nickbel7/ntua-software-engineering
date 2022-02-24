@@ -1,7 +1,5 @@
 # TL21-38 | Tolls Interoperability
 
-#### THIS IS GOING TO BE THE BEST PROJECT IN THIS CLASS
-
 ## Contributors
 | Name                                                      | Database | Backend | API    | CLI    | Frontend | API-testing | CLI-testing | Docs-Diagrams |
 | ---                                                       | :---:    | :---:   | :---:  | :---:  | :---:    | :---:       | :---:       | :---:         |
