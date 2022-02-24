@@ -8,7 +8,7 @@ module.exports = function apu(source) {
               let options = {
               mode: 'text',
               pythonOptions: ['-u'],
-              args: ["../../database/DATA-DUMP/DATA_TRANSPOSE/sampledata01_passes.csv"]
+              args: ["../../database/DATA-DUMP/DATA_TRANSPOSE/sampledata01_passes100_8000.csv"]
              };
               await PythonShell.run('run.py', options, function (err, results) {
               if (err) throw err;
