@@ -4,9 +4,9 @@ import $ from '../../bundles/node_modules/jquery';
 var cbStartDate = '20190101';
 var cbEndDate = '20220101';
 var cbProvider1Id = 1; 
-var bar_graph; 
-var cost_bar_graph; 
-var fav_bar_graph; 
+let bar_graph; 
+let cost_bar_graph; 
+let fav_bar_graph; 
 
 const chart_ctx = document.getElementById('bar-graph').getContext('2d');
 const cost_chart = document.getElementById('tc-bar-graph').getContext('2d');
@@ -61,11 +61,13 @@ function onSuccessCB(data) {
     const cost = []; 
     const data1 = []; 
     const name1 = [];
-    const fav = []; 
-
+    
     for (var i=0; i<passes.length; i++) {
         var provider_info = providers[passes[i].provider_name];
         var provider_name = passes[i].provider_name;
+        if (provider_name === 'aodos') {
+            continue; 
+        };
         var provider_charge = passes[i].total_charge;
         total_revenue += Number(provider_charge);
         total_passes_num += Number(passes[i].total_passes)
@@ -81,6 +83,7 @@ function onSuccessCB(data) {
     $('#cb-fav-result').html("Most Favorite: </br> " + "<b>" + most_lucrative[0] + "</b>");
     $('#cb-results-count').html("Total Passes: </br>" + "<b>" + total_passes_num + "</b>");
     $('#cb-total-cost-count').html("Total Cost: </br>" + "<b>" + Math.round(total_revenue*100)/100+" \u20AC" + "</b>");
+      
     create_cost_bar_chart(cost,name1);
     create_bar_chart(data1,name1);
     create_pie_chart(data1,name1);
@@ -88,7 +91,13 @@ function onSuccessCB(data) {
 
 
 function create_bar_chart(data1,labels1) {
-    bar_graph = new Chart(chart_ctx, {
+    let chartStatus1 = Chart.getChart('bar-graph'); // <canvas> id
+    if (chartStatus1 != undefined) {
+        chartStatus1.destroy();
+    }
+
+    var chartCanvas = $('#bar-graph'); //<canvas> id  
+    chartCanvas = new Chart(chart_ctx, {
     type: 'bar',
     data: {
         labels: labels1,
@@ -123,7 +132,12 @@ function create_bar_chart(data1,labels1) {
 }
 
 function create_cost_bar_chart(cost,labels1) {
-    cost_bar_graph = new Chart(cost_chart, {
+    let chartStatus2 = Chart.getChart('tc-bar-graph'); // <canvas> id
+    if ( chartStatus2 != undefined ) {
+        chartStatus2.destroy();
+    }
+    var chartCanvas2 = $('#tc-bar-graph'); //<canvas> id  
+    chartCanvas2 = new Chart(cost_chart, {
     type: 'bar',
     data: {
         labels: labels1,
@@ -158,7 +172,14 @@ function create_cost_bar_chart(cost,labels1) {
 }
 
 function create_pie_chart(cost,labels1) {
-    fav_bar_graph = new Chart(fav_chart, {
+    let chartStatus3 = Chart.getChart('fav-bar-graph'); // <canvas> id
+     
+    if (chartStatus3 != undefined) {
+        chartStatus3.destroy();
+    }
+
+    var chartCanvas3 = $('#fav-bar-graph'); //<canvas> id  
+    chartCanvas3 = new Chart(fav_chart, {
     type: 'polarArea',
     data: {
         labels: labels1,

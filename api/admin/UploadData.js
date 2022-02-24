@@ -1,7 +1,7 @@
 const express = require('../../backend/node_modules/express');
 const router = express.Router();
-const fs = require('fs');
 const pool = require('../../backend/connect');
+const fs = require('fs');
 
 var sql = fs.readFileSync('../cli/data/data.sql').toString();
 
