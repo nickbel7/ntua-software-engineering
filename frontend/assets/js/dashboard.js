@@ -1,57 +1,57 @@
 import $ from '../../bundles/node_modules/jquery';
-// Charges By --> cb
+// Dashboard --> dash
 
-var cbStartDate = '20190101';
-var cbEndDate = '20220101';
-var cbProvider1Id = 1; 
-let bar_graph; 
-let cost_bar_graph; 
-let fav_bar_graph; 
+var dashStartDate = '20190101';
+var dashEndDate = '20220101';
+var dashProvider1Id = '1';
 
 const chart_ctx = document.getElementById('bar-graph').getContext('2d');
 const cost_chart = document.getElementById('tc-bar-graph').getContext('2d');
 const fav_chart = document.getElementById('fav-bar-graph').getContext('2d');
 
 var providers = {
-    "aodos" : [1, "Aodos", "AO"],
-    "gefyra" : [2, "Gefyra", "GF"],
-    "egnatia" : [3, "Egnatia", "EG"],
-    "kentriki_odos" : [4, "Kentriki Odos", "KO"],
-    "moreas" : [5, "Moreas", "MR"],
-    "nea_odos" : [6, "Nea Odos", "NE"],
-    "olympia_odos" : [7, "Olympia Odos", "OO"]
+        "aodos" : [1, "Aodos", "AO"],
+        "gefyra" : [2, "Gefyra", "GF"],
+        "egnatia" : [3, "Egnatia", "EG"],
+        "kentriki_odos" : [4, "Kentriki Odos", "KO"],
+        "moreas" : [5, "Moreas", "MR"],
+        "nea_odos" : [6, "Nea Odos", "NE"],
+        "olympia_odos" : [7, "Olympia Odos", "OO"]
     }
 
 $(document).ready(function(){
-    cbApiCall();
-    // INPUT FIELDS (defaults)
-    $('#cb-start-date').val(cbStartDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
-    $('#cb-end-date').val(cbEndDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
+
+    if (location.pathname == '/') {
+        dashApiCall();
+        // INPUT FIELDS (defaults)
+        $('#dash-start-date').val(dashStartDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
+        $('#dash-end-date').val(dashEndDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
+    }
 }); 
 
-$('#cb-submit-btn').on('click', function() {
-    cbStartDate = $('#cb-start-date').val().replace(/-/g, "");
-    cbEndDate = $('#cb-end-date').val().replace(/-/g, "");
-    cbApiCall();
+$('#dash-submit-btn').on('click', function() {
+    dashStartDate = $('#dash-start-date').val().replace(/-/g, "");
+    dashEndDate = $('#dash-end-date').val().replace(/-/g, "");
+    dashApiCall();
 }); 
 
 
-function cbApiCall() {
+function dashApiCall() {
     $.ajax({
-        url: `https://localhost:9103/interoperability/api/ChargesBy/${cbProvider1Id}/${cbStartDate}/${cbEndDate}`,
+        url: `https://localhost:9103/interoperability/api/ChargesBy/${dashProvider1Id}/${dashStartDate}/${dashEndDate}`,
         type: 'GET',
         dataType: 'json',
         cache: false,
         async: false,
-        success: onSuccessCB,
+        success: onSuccessDASH,
         error: function(){
-            alert("There was an error in PassesPerStation request :(")
+            alert("There was an error in ChargesBy request :(")
         }
     });
 }
 
 
-function onSuccessCB(data) {
+function onSuccessDASH(data) {
 
     var passes = data.PassesList; 
     var total_passes_num = 0;   
@@ -80,9 +80,9 @@ function onSuccessCB(data) {
         }
     }
     
-    $('#cb-fav-result').html("Most Favorite: </br> " + "<b>" + most_lucrative[0] + "</b>");
-    $('#cb-results-count').html("Total Passes: </br>" + "<b>" + total_passes_num + "</b>");
-    $('#cb-total-cost-count').html("Total Cost: </br>" + "<b>" + Math.round(total_revenue*100)/100+" \u20AC" + "</b>");
+    $('#dash-fav-result').html("Most Favorite: </br> " + "<b>" + most_lucrative[0] + "</b>");
+    $('#dash-results-count').html("Total Passes: </br>" + "<b>" + total_passes_num + "</b>");
+    $('#dash-total-cost-count').html("Total Cost: </br>" + "<b>" + Math.round(total_revenue*100)/100+" \u20AC" + "</b>");
       
     create_cost_bar_chart(cost,name1);
     create_bar_chart(data1,name1);
