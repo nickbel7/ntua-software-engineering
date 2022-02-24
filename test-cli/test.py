@@ -2,7 +2,6 @@ import pandas as pd
 from pathlib import Path
 from colorama import Fore, Style
 import os
-import json
 providers = {"AO": "1", "GF": "2", "EG": "3", "KO": "4", "MR": "5", "NE": "6" , "OO": "7"}
 func = {"passesperstation": 1 , "passesanalysis" : 2, "passescost": 3, "chargesby" : 4,
          "healthcheck":5, "resetpasses": 6, "resetstations":7,"resetvehicles":8}
@@ -54,7 +53,11 @@ def pps_param(line):
 def takedate(line):
     d=pa_param(line)
     start_date=d[0]+d[1]+d[2]+"01"
-    month = "{:02d}".format(int(d[2])+1)
+    if ((int(d[2])+1)%13) == 0:
+        month = "{:02d}".format((int(d[2])+1)%13 + 1)
+        d[1] = str(int(d[1])+1)
+    else:
+        month = "{:02d}".format(int(d[2])+1)
     end_date=d[0]+d[1]+month+"01"
 
     return (start_date,end_date)
@@ -135,12 +138,15 @@ for i in range(0,test_num):
 print(f"Passes: {passed}/{test_num}")
 
 if passed!=test_num:
-    print("Status: " + Fore.RED+"Failed!")
+    print("Status: " + Fore.RED+f"Failed!value={value}, expected={expected}")
+    exit()
 else:
     print("Status: " + Fore.GREEN+"Passed")
 
 print(Fore.YELLOW+"PASSES PER STATION TEST END"+Style.RESET_ALL)
 print()
+
+
 
 #Passes Analysis Testing
 print(Fore.YELLOW+"PASSES ANALYSIS TEST START"+Style.RESET_ALL)
