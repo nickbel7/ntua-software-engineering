@@ -1,16 +1,18 @@
 const axios = require ('axios');
 let {PythonShell} = require('python-shell')
+const path = require('path'); 
+const fs = require('fs');
 
 module.exports = function apu(source) {
-    
+ 
     function runPy(){
         return new Promise(async function(resolve, reject){
               let options = {
               mode: 'text',
               pythonOptions: ['-u'],
-              args: ["../../database/DATA-DUMP/DATA_TRANSPOSE/sampledata01_passes100_8000.csv"]
+              args: [source]
              };
-              await PythonShell.run('run.py', options, function (err, results) {
+              await PythonShell.run(path.join(__dirname,'/') +'run.py', options, function (err, results) {
               if (err) throw err;
          });
        })
