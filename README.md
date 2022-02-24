@@ -3,14 +3,14 @@
 #### THIS IS GOING TO BE THE BEST PROJECT IN THIS CLASS
 
 ## Contributors
-| Name | Database | Backend | API | CLI | Frontend | API-testing | CLI-testing | Docs-Diagrams |
-| --- | :---:  | :---:  | :---:  | :---:  | :---:  | :---:  | :---:  | :---:  |
-|[nickbel7](https://github.com/nickbel7)| **X** |
-|[ElinaSyr](https://github.com/ElinaSyr)| |
-|[el18134](https://github.com/el18183)| |
-|[christidia](https://github.com/christidia)| |
-|[TomSpyropoulos](https://github.com/TomSpyropoulos)| |
-|[yiannosParanomos](https://github.com/yiannosParanomos)| |
+| Name                                                      | Database | Backend | API    | CLI    | Frontend | API-testing | CLI-testing | Docs-Diagrams |
+| ---                                                       | :---:    | :---:   | :---:  | :---:  | :---:    | :---:       | :---:       | :---:         |
+|[nickbel7](https://github.com/nickbel7)                    | **X**    | **X**   |        |        | **X**    |             |             | **X**         | 
+|[ElinaSyr](https://github.com/ElinaSyr)                    |          |         |        | **X**  | **X**    |             |             | **X**         | 
+|[el18134](https://github.com/el18183)                      |          | **X**   | **X**  |        |          |             |             | **X**         | 
+|[christidia](https://github.com/christidia)                |          |         |        |        |          | **X**       |             | **X**         | 
+|[TomSpyropoulos](https://github.com/TomSpyropoulos)        | **X**    |         |        | **X**  |          |             | **X**       | **X**         | 
+|[yiannosParanomos](https://github.com/yiannosParanomos)    |          |         |        | **X**  |          |             | **X**       | **X**         | 
 
 ## Requirements
 - Postgresql
