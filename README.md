@@ -6,7 +6,7 @@
 |[nickbel7](https://github.com/nickbel7)                    | **X**    | **X**   |        |        | **X**    |             |             | **X**         | 
 |[ElinaSyr](https://github.com/ElinaSyr)                    |          |         |        | **X**  | **X**    |             |             | **X**         | 
 |[el18134](https://github.com/el18183)                      |          | **X**   | **X**  |        |          |             |             | **X**         | 
-|[christidia](https://github.com/christidia)                |          |         |        |        |          | **X**       |             | **X**         | 
+|[christidia](https://github.com/christidia)                |          | **X**   | **X**  |        |          |   **X**     |             | **X**         | 
 |[TomSpyropoulos](https://github.com/TomSpyropoulos)        | **X**    |         |        | **X**  |          |             | **X**       | **X**         | 
 |[yiannosParanomos](https://github.com/yiannosParanomos)    |          |         |        | **X**  |          |             | **X**       | **X**         | 
 
