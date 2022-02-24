@@ -6,12 +6,16 @@ var ppsStartDate = '20190101';
 var ppsEndDate = '20220101';
 
 $(document).ready(function(){
-    ppsApiCall();
-
-    // INPUT FIELDS (defaults)
-    $('#pps-station-id').val(ppsStationName);
-    $('#pps-start-date').val(ppsStartDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
-    $('#pps-end-date').val(ppsEndDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
+    
+    if (location.pathname == '/passesperstation') {
+        ppsApiCall();
+        
+        // INPUT FIELDS (defaults)
+        $('#pps-station-id').val(ppsStationName);
+        $('#pps-start-date').val(ppsStartDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
+        $('#pps-end-date').val(ppsEndDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
+    }
+    
 }); 
 
 $('#pps-submit-btn').on('click', function() {

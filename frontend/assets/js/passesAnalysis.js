@@ -7,12 +7,16 @@ var paStartDate = '20190101';
 var paEndDate = '20220101';
 
 $(document).ready(function(){
-    paApiCall();
 
-    // INPUT FIELDS (defaults)
-    $('#pa-provider2-name').val(paProvider2Id);
-    $('#pa-start-date').val(paStartDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
-    $('#pa-end-date').val(paEndDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
+    if (location.pathname == '/passesanalysis') {
+        paApiCall();
+
+        // INPUT FIELDS (defaults)
+        $('#pa-provider2-name').val(paProvider2Id);
+        $('#pa-start-date').val(paStartDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
+        $('#pa-end-date').val(paEndDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
+    }
+
 }); 
 
 $('#pa-submit-btn').on('click', function() {

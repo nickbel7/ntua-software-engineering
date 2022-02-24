@@ -16,11 +16,15 @@ var providers = {
     }
 
 $(document).ready(function(){
-    cbApiCall();
 
-    // INPUT FIELDS (defaults)
-    $('#cb-start-date').val(cbStartDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
-    $('#cb-end-date').val(cbEndDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
+    if (location.pathname == '/chargesby') {
+        cbApiCall();
+
+        // INPUT FIELDS (defaults)
+        $('#cb-start-date').val(cbStartDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
+        $('#cb-end-date').val(cbEndDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
+    }
+    
 }); 
 
 $('#cb-submit-btn').on('click', function() {
