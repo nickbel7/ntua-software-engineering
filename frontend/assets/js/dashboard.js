@@ -80,7 +80,7 @@ function onSuccessCB(data) {
     
     $('#cb-fav-result').html("Most Favorite: </br> " + "<b>" + most_lucrative[0] + "</b>");
     $('#cb-results-count').html("Total Passes: </br>" + "<b>" + total_passes_num + "</b>");
-    $('#cb-total-cost-count').html("Total Cost: </br>" + "<b>" + total_revenue + "</b>");
+    $('#cb-total-cost-count').html("Total Cost: </br>" + "<b>" + Math.round(total_revenue*100)/100+" \u20AC" + "</b>");
     create_cost_bar_chart(cost,name1);
     create_bar_chart(data1,name1);
     create_pie_chart(data1,name1);
