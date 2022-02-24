@@ -6,7 +6,7 @@ const pool = require('../../backend/connect');
 var sql = fs.readFileSync('../database/DATA-DUMP/WITH_SQL/tags.sql').toString();
 
 router.post('/', function(req, res) {
-        pool.connect(function(err, client) {
+        pool.connect(function(err, client, release) {
 		if(err) {
                         res.status(500).json({status:"failed"});
                         console.log("connection failed", err);
@@ -30,6 +30,7 @@ router.post('/', function(req, res) {
                                 });
                         }
                 });
+		release();
         });
 });
 

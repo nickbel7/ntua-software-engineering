@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require('../../backend/connect');
 
 router.post('/', function(req, res) {
-	pool.connect(function(err, client) {
+	pool.connect(function(err, client, release) {
 		if(err) {
 			res.status(500).json({status:"failed"});
 				console.log("connection failed", err);
@@ -19,6 +19,7 @@ router.post('/', function(req, res) {
                 console.log("table passes truncated");
 			}
 		});
+		release();
 	});
 });
 
