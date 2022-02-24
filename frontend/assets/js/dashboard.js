@@ -1,61 +1,57 @@
 import $ from '../../bundles/node_modules/jquery';
-// Dashboard --> dash
+// Charges By --> cb
 
-var dashStartDate = '20190101';
-var dashEndDate = '20220101';
-var dashProvider1Id = 1; 
-// var bar_graph; 
-// var cost_bar_graph; 
-// var fav_bar_graph; 
+var cbStartDate = '20190101';
+var cbEndDate = '20220101';
+var cbProvider1Id = 1; 
+let bar_graph; 
+let cost_bar_graph; 
+let fav_bar_graph; 
 
 const chart_ctx = document.getElementById('bar-graph').getContext('2d');
 const cost_chart = document.getElementById('tc-bar-graph').getContext('2d');
 const fav_chart = document.getElementById('fav-bar-graph').getContext('2d');
 
 var providers = {
-        "aodos" : [1, "Aodos", "AO"],
-        "gefyra" : [2, "Gefyra", "GF"],
-        "egnatia" : [3, "Egnatia", "EG"],
-        "kentriki_odos" : [4, "Kentriki Odos", "KO"],
-        "moreas" : [5, "Moreas", "MR"],
-        "nea_odos" : [6, "Nea Odos", "NE"],
-        "olympia_odos" : [7, "Olympia Odos", "OO"]
+    "aodos" : [1, "Aodos", "AO"],
+    "gefyra" : [2, "Gefyra", "GF"],
+    "egnatia" : [3, "Egnatia", "EG"],
+    "kentriki_odos" : [4, "Kentriki Odos", "KO"],
+    "moreas" : [5, "Moreas", "MR"],
+    "nea_odos" : [6, "Nea Odos", "NE"],
+    "olympia_odos" : [7, "Olympia Odos", "OO"]
     }
 
 $(document).ready(function(){
-
-    if (location.pathname == '/') {
-        dashApiCall();
-
-        // INPUT FIELDS (defaults)
-        $('#dash-start-date').val(dashStartDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
-        $('#dash-end-date').val(dashEndDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
-    }
-    
+    cbApiCall();
+    // INPUT FIELDS (defaults)
+    $('#cb-start-date').val(cbStartDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
+    $('#cb-end-date').val(cbEndDate.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
 }); 
 
-$('#dash-submit-btn').on('click', function() {
-    dashStartDate = $('#dash-start-date').val().replace(/-/g, "");
-    dashEndDate = $('#dash-end-date').val().replace(/-/g, "");
-    dashApiCall();
+$('#cb-submit-btn').on('click', function() {
+    cbStartDate = $('#cb-start-date').val().replace(/-/g, "");
+    cbEndDate = $('#cb-end-date').val().replace(/-/g, "");
+    cbApiCall();
 }); 
 
 
-function dashApiCall() {
+function cbApiCall() {
     $.ajax({
-        url: `https://localhost:9103/interoperability/api/ChargesBy/${dashProvider1Id}/${dashStartDate}/${dashEndDate}`,
+        url: `https://localhost:9103/interoperability/api/ChargesBy/${cbProvider1Id}/${cbStartDate}/${cbEndDate}`,
         type: 'GET',
         dataType: 'json',
         cache: false,
         async: false,
-        success: onSuccessDASH,
+        success: onSuccessCB,
         error: function(){
-            alert("There was an error in ChargesBy request :(")
+            alert("There was an error in PassesPerStation request :(")
         }
     });
 }
 
-function onSuccessDASH(data) {
+
+function onSuccessCB(data) {
 
     var passes = data.PassesList; 
     var total_passes_num = 0;   
@@ -65,11 +61,13 @@ function onSuccessDASH(data) {
     const cost = []; 
     const data1 = []; 
     const name1 = [];
-    const fav = []; 
-
+    
     for (var i=0; i<passes.length; i++) {
         var provider_info = providers[passes[i].provider_name];
         var provider_name = passes[i].provider_name;
+        if (provider_name === 'aodos') {
+            continue; 
+        };
         var provider_charge = passes[i].total_charge;
         total_revenue += Number(provider_charge);
         total_passes_num += Number(passes[i].total_passes)
@@ -85,14 +83,21 @@ function onSuccessDASH(data) {
     $('#cb-fav-result').html("Most Favorite: </br> " + "<b>" + most_lucrative[0] + "</b>");
     $('#cb-results-count').html("Total Passes: </br>" + "<b>" + total_passes_num + "</b>");
     $('#cb-total-cost-count').html("Total Cost: </br>" + "<b>" + Math.round(total_revenue*100)/100+" \u20AC" + "</b>");
-    create_cost_bar_chart(cost, name1);
-    create_bar_chart(data1, name1);
-    create_pie_chart(data1, name1);
+      
+    create_cost_bar_chart(cost,name1);
+    create_bar_chart(data1,name1);
+    create_pie_chart(data1,name1);
 }
 
-function create_bar_chart(data1, labels1) {
-    let bar_graph;
-    bar_graph = new Chart(chart_ctx, {
+
+function create_bar_chart(data1,labels1) {
+    let chartStatus1 = Chart.getChart('bar-graph'); // <canvas> id
+    if (chartStatus1 != undefined) {
+        chartStatus1.destroy();
+    }
+
+    var chartCanvas = $('#bar-graph'); //<canvas> id  
+    chartCanvas = new Chart(chart_ctx, {
     type: 'bar',
     data: {
         labels: labels1,
@@ -126,9 +131,13 @@ function create_bar_chart(data1, labels1) {
     });
 }
 
-function create_cost_bar_chart(cost, labels1) {
-    let cost_bar_graph;
-    cost_bar_graph = new Chart(cost_chart, {
+function create_cost_bar_chart(cost,labels1) {
+    let chartStatus2 = Chart.getChart('tc-bar-graph'); // <canvas> id
+    if ( chartStatus2 != undefined ) {
+        chartStatus2.destroy();
+    }
+    var chartCanvas2 = $('#tc-bar-graph'); //<canvas> id  
+    chartCanvas2 = new Chart(cost_chart, {
     type: 'bar',
     data: {
         labels: labels1,
@@ -162,9 +171,15 @@ function create_cost_bar_chart(cost, labels1) {
     });
 }
 
-function create_pie_chart(cost, labels1) {
-    let fav_bar_graph;
-    fav_bar_graph = new Chart(fav_chart, {
+function create_pie_chart(cost,labels1) {
+    let chartStatus3 = Chart.getChart('fav-bar-graph'); // <canvas> id
+     
+    if (chartStatus3 != undefined) {
+        chartStatus3.destroy();
+    }
+
+    var chartCanvas3 = $('#fav-bar-graph'); //<canvas> id  
+    chartCanvas3 = new Chart(fav_chart, {
     type: 'polarArea',
     data: {
         labels: labels1,
