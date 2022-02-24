@@ -1,6 +1,9 @@
 .dash-main {
+    height: 100%;
+    width: 100%;
+    padding: 1em;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin: 0.4em;
     .dash-right{
         display: flex; 
