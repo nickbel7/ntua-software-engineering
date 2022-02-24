@@ -61,7 +61,7 @@ app.use(baseurl+'/PassesPerStation', passesperstation);
 app.use(baseurl+'/PassesAnalysis', passesanalysis);
 app.use(baseurl+'/PassesCost', passescost);
 app.use(baseurl+'/ChargesBy', chargesby);
-app.use(baseurl+'/UploadData', uploaddata);
+app.use(baseurl+'/admin/UploadData', uploaddata);
 
 // ROUTES FOR FRONTEND
 webapp.use(express.static(path.join(__dirname, '..') + "/frontend/assets"));
