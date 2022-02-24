@@ -115,8 +115,8 @@ program
     .command('admin')
     .showHelpAfterError('add --help for additional information')
     .helpOption('-h, --help', 'Display help for command')
-    .option('--passesupd',               'Don\'t give any argument           ->      {}')
-    .option('--source',                  'Give the path to the file         ->      \"/data/newpassesXXXX.csv\"')
+    .requiredOption('--passesupd',               'Don\'t give any argument           ->      {}')
+    .requiredOption('--source <path>',                  'Give the path to the file         ->      \"/data/newpassesXXXX.csv\"')
     .action((options)=>{
         if(options.passesupd!=undefined && options.source==undefined)
             console.error('Argument \'--pasesupd\' must be followes by \'--source\'');
