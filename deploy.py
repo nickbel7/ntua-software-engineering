@@ -88,7 +88,7 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 cli_path = os.path.join(dir_path, "cli")
 os.chdir(cli_path)
 subprocess.check_call('npm install', shell=True)
-subprocess.check_call('npm install -g', shell=True)
+# subprocess.check_call('npm install -g', shell=True)
 
 # node_modules for backend server
 backend_path = os.path.join(dir_path, "backend")
