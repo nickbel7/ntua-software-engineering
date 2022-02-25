@@ -4,8 +4,8 @@ require('dotenv').config();
 const config = {
   	user: "postgres",
 	host: "localhost",
-  	database: "diode",
-  	password: "*****",
+  	database: "diode2",
+  	password: "postgres",
   	port: 5432,
 }
 
