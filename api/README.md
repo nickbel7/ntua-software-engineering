@@ -1,6 +1,5 @@
-# Back-end
-
-### Dependencies
+## RESTful API
+**Dependencies** :
 ```
 cd ./api
 npm install
@@ -11,7 +10,6 @@ npm install body-parser
 npm install json2csv
 ```
 
-## RESTful API
 **Initial file** :
 - index.js (backend)
 
