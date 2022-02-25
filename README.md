@@ -37,10 +37,5 @@ Tools used :
 - Sass
 - html/css/js
 
-```
-cd ./api
-npm install
-```
-
 ## Code license
 The code in this repository is licensed under the [MIT license](LICENSE).
