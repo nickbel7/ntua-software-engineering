@@ -1,5 +1,5 @@
 ## RESTful API
-**Dependencies** :
+## Dependencies :
 ```
 cd ./api
 npm install
