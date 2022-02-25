@@ -1,4 +1,3 @@
-import psycopg2
 import subprocess
 import os
 
@@ -29,6 +28,8 @@ print("Dependencies downloaded successfully........")
 ##############################################
 ###   CREATE THE DATABASE
 ##
+
+import psycopg2
 
 #establishing the connection
 conn = psycopg2.connect(
