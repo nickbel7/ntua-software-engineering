@@ -81,17 +81,17 @@ aside {
             }
         }
         .user-icon {
-            width: 10em;
-            padding: 1em 0;
+            width: 13em;
+            padding: 0.5em 0;
             margin: 0 auto;
             display: flex; 
-            justify-content: space-around;
             border-radius: 0.5em;
             text-decoration: none;
             font-size: .7rem;
             font-weight: bold;
             color: $font-color;
             align-items: center;
+            justify-content: space-around;
             transition: all .2s;
             border: 1px solid #807d7d;
             box-shadow: 4px 4px 12px #111111, -4px -4px 10px #414141;
@@ -99,14 +99,15 @@ aside {
                 width: 1.4em;
                 height: 1.4em;
                 border-radius: 11px;
+                filter: invert(0.7);
             }
             #user-name {
                 font-size: 13px;
             }
-        }
-        .user-icon:hover {
-            border: 1px solid #ADFF28;
-            cursor: pointer;
+            &:hover {
+                border: 1px solid #ADFF28;
+                cursor: pointer;
+            }
         }
     }
 }

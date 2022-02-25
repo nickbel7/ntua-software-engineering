@@ -1,44 +1,50 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="dash-main">
-  <div class="dash-left header-container">
-    <form class="inputs-container">
-      <div class="input-div">
-          <label class="input-desc">Date From :</label>
-          <input id="dash-start-date" class="input-field" type="date">
-      </div>
-      <div class="input-div">
-          <label class="input-desc">Date to :</label>
-          <input id="dash-end-date" class="input-field" type="date">
-      </div>
-      <button id="dash-submit-btn" class="btn" type="button">Submit</button>
-    </form>
-    <div class="stat-container">
-      <div class="stat-header">
-        <div class="stat-text">
-          <p id="dash-fav-result">Most Favorite: </p>
+<div class="dash-container">
+  
+  <div class="dash-left">
+
+    <div class="header-container">
+      <form class="inputs-container">
+        <div class="input-div">
+            <label class="input-desc">Date From :</label>
+            <input id="dash-start-date" class="input-field" type="date">
         </div>
-        <canvas id="fav-bar-graph"></canvas>
-      </div>
+        <div class="input-div">
+            <label class="input-desc">Date to :</label>
+            <input id="dash-end-date" class="input-field" type="date">
+        </div>
+        <button id="dash-submit-btn" class="btn" type="button">Submit</button>
+      </form>
     </div>
+
+    <div class="chart-container">
+        <p id="dash-fav-result">Most Favorite: </p>
+        <canvas id="fav-bar-graph"></canvas>
+    </div>
+
   </div>
+
   <div class="dash-right"> 
-    <div class="stat-container">
-      <div class="stat-header">
-        <div class="stat-text">
-          <p id="dash-results-count">Τotal Passes: </p>
-        </div>
-      </div>
+
+    <div class="chart-container">
+      <!-- <div class="stat-header"> -->
+        <!-- <div class="stat-text"> -->
+      <p id="dash-results-count">Τotal Passes: </p>
+        <!-- </div> -->
+      <!-- </div> -->
       <canvas id="bar-graph"></canvas>
     </div> 
-    <div class="stat-container">
-      <div class="stat-header">
-        <div class="stat-text">
-          <p id="dash-total-cost-count">Total Cost: </p>
-        </div>
+
+    <div class="chart-container">
+      <!-- <div class="stat-header"> -->
+        <!-- <div class="stat-text"> -->
+        <p id="dash-total-cost-count">Total Cost: </p>
+        <!-- </div> -->
         <canvas id="tc-bar-graph"></canvas>
-      </div>
+      <!-- </div> -->
     </div>
+
   </div>
 </div>
 
