@@ -15,6 +15,7 @@
 - admin/resetpasses.js
 - admin/resetstations.js
 - admin/resetvehicles.js
+- admin/UploadData.js
 
 **Connection with DB** :
 - connect.js
