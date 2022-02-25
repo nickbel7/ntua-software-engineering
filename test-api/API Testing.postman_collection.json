@@ -139,11 +139,29 @@
 							"var count = Object.keys(jsonData.PassesList).length;\r",
 							"\r",
 							"var list = pm.variables.get(\"passes_list\");\r",
+							"/*for (let i=0; i<count; i++ ){\r",
+							"    pm.test(\"Total Charges Owed By Other Operators\", function () {\r",
+							"    if(i==0){pm.expect(jsonData.PassesList[0].total_charge).to.eql(pm.variables.get('passes_list_1'));}\r",
+							"    if(i==1){pm.expect(jsonData.PassesList[1].total_charge).to.eql(pm.variables.get('passes_list_2'));}\r",
+							"    if(i==2){pm.expect(jsonData.PassesList[2].total_charge).to.eql(pm.variables.get('passes_list_3'));}\r",
+							"    if(i==3){ pm.expect(jsonData.PassesList[2].total_charge).to.eql(pm.variables.get('passes_list_4'));}\r",
+							"    if(i==4){pm.expect(jsonData.PassesList[3].total_charge).to.eql(pm.variables.get('passes_list_5'));}\r",
+							"    if(i==5){pm.expect(jsonData.PassesList[4].total_charge).to.eql(pm.variables.get('passes_list_6'));}\r",
+							"\r",
+							"    });\r",
+							"}*/\r",
 							"for (let i=0; i<count; i++ ){\r",
 							"    pm.test(\"Total Charges Owed By Other Operators\", function () {\r",
-							"        pm.expect(jsonData.PassesList[i].total_charge).to.eql(list[i]);\r",
+							"        pm.expect(jsonData.PassesList[i].total_charge).to.eql(list[i])\r",
 							"    });\r",
-							"}"
+							"}\r",
+							"            \r",
+							"            \r",
+							"           \r",
+							"            \r",
+							"            \r",
+							"            \r",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -208,7 +226,8 @@
 		{
 			"key": "admin_base_url",
 			"value": "https://localhost:9103/interoperability/api/admin",
-			"type": "string"
+			"type": "string",
+			"disabled": true
 		},
 		{
 			"key": "op1_ID",
@@ -254,6 +273,41 @@
 			"key": "number_of_passes_analysis",
 			"value": "4",
 			"type": "string"
+		},
+		{
+			"key": "passes_list_1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "passes_list_2",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "passes_list_3",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "passes_list_4",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "passes_list_5",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "passes_list_6",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"value": "",
+			"type": "string",
+			"disabled": true
 		}
 	]
 }
