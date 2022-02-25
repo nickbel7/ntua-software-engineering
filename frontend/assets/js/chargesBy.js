@@ -42,7 +42,7 @@ function cbApiCall() {
         async: false,
         success: onSuccessCB,
         error: function(){
-            alert("There was an error in PassesPerStation request :(")
+            alert("No data :(")
         }
     });
 }

@@ -34,7 +34,7 @@ function ppsApiCall() {
         async: false,
         success: onSuccessPPS,
         error: function(){
-            alert("There was an error in PassesPerStation request :(")
+            alert("No data :(")
         }
     });
 }

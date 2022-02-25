@@ -45,7 +45,7 @@ function dashApiCall() {
         async: false,
         success: onSuccessDASH,
         error: function(){
-            alert("There was an error in ChargesBy request :(")
+            alert("No data :(")
         }
     });
 }
