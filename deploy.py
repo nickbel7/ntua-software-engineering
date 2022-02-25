@@ -34,9 +34,9 @@ import psycopg2
 #establishing the connection
 conn = psycopg2.connect(
    database="postgres",
-   user='postgres', 
-   password='postgres', 
-   host='localhost', 
+   user='postgres',
+   password='postgres',
+   host='localhost',
    port= '5432'
 )
 conn.autocommit = True
@@ -44,8 +44,7 @@ conn.autocommit = True
 #Creating a cursor object using the cursor() method
 cursor = conn.cursor()
 
-# sql = ''
-fd = open('database/CREATE_DATABASE.sql', 'r')
+fd = open(os.path.join(dir_path, "database/CREATE_DATABASE.sql"), 'r')
 sqlFile = fd.read()
 fd.close()
 
@@ -63,9 +62,9 @@ conn.close()
 
 conn = psycopg2.connect(
    database="diode",
-   user='postgres', 
-   password='postgres', 
-   host='localhost', 
+   user='postgres',
+   password='postgres',
+   host='localhost',
    port= '5432'
 )
 conn.autocommit = True
@@ -73,14 +72,14 @@ conn.autocommit = True
 cursor = conn.cursor()
 
 ## CREATE THE TABLES
-fd = open('database/CREATE_TABLES.sql', 'r')
+fd = open(os.path.join(dir_path, "database/CREATE_TABLES.sql"), 'r')
 sqlFile = fd.read()
 fd.close()
 
 cursor.execute(sqlFile)
 print("Tables created successfully........")
 
-fd = open('database/CREATE_VIEWS.sql', 'r')
+fd = open(os.path.join(dir_path, "database/CREATE_VIEWS.sql"), 'r')
 sqlFile = fd.read()
 fd.close()
 
@@ -92,7 +91,7 @@ print("Views created successfully........")
 ###   IMPORT THE DATA (providers)
 ##
 
-fd = open('database/DATA-DUMP/WITH_SQL/providers.sql', 'r')
+fd = open(os.path.join(dir_path, "database/DATA-DUMP/WITH_SQL/providers.sql"), 'r')
 sqlFile = fd.read()
 fd.close()
 
