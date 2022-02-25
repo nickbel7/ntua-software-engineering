@@ -19,6 +19,11 @@
 ```
 cd ./api
 npm install
+npm install express
+npm install pg
+npm install file-system
+npm install body-parser
+npm install json2csv
 ```
 
 ## Code license
