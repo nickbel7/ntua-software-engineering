@@ -35,7 +35,7 @@ function paApiCall() {
         async: false,
         success: onSuccessPA,
         error: function(){
-            alert("There was an error in PassesPerStation request :(")
+            alert("No data :(")
         }
     });
 }
