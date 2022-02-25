@@ -2,7 +2,7 @@
 
 ## RESTful API
 **Initial file** :
-- index.js
+- index.js (backend)
 
 **API files** :
 - ChargesBy.js
@@ -18,7 +18,7 @@
 - admin/UploadData.js
 
 **Connection with DB** :
-- connect.js
+- connect.js (backend)
 
 **Dependencies (Nodejs)** :
 - package.json
