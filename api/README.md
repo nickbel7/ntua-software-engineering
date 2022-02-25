@@ -1,5 +1,7 @@
 ## RESTful API
-## Dependencies :
+# Dependencies:
+- package.json
+- package-lock.json
 ```
 cd ./api
 npm install
@@ -9,31 +11,27 @@ npm install file-system
 npm install body-parser
 npm install json2csv
 ```
+-
+# Index file:
+- index.js [backend/index.js](https://github.com/ntua/TL21-38/blob/master/backend/index.js)
 
-**Initial file** :
-- index.js (backend)
+# Connection with PostgreSQL Database:
+- connect.js [backend/connect.js](https://github.com/ntua/TL21-38/blob/master/backend/connect.js)
 
-**API files** :
+# API Functional Endpoints:
 - ChargesBy.js
 - PassesAnalysis.js
 - PassesCost.js
 - PassesPerStation.js
 
-**API files ADMIN**
+# API Admin Endpoints:
 - admin/healthcheck.js
 - admin/resetpasses.js
 - admin/resetstations.js
 - admin/resetvehicles.js
 - admin/UploadData.js
 
-**Connection with DB** :
-- connect.js (backend)
-
-**Dependencies (Nodejs)** :
-- package.json
-- package-lock.json
-
-**(HTTPS) Certificate, key for localhost** :
+# SSL Certificates and Keys (https):
 - certificates/localhost.crt
 - certificates/localhost.csr
 - certificates/hocalhost.decrypted.key
