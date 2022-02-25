@@ -3,6 +3,30 @@ import subprocess
 import os
 
 ##############################################
+###   DOWNLOAD THE DEPENDENCIES
+##
+
+# Path of project folder
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
+#install python dependencies
+subprocess.check_call('pip install -r requirements.txt', shell=True)
+
+# node_modules for cli
+cli_path = os.path.join(dir_path, "cli")
+os.chdir(cli_path)
+subprocess.check_call('npm install', shell=True)
+# subprocess.check_call('npm install -g', shell=True)
+
+# node_modules for backend server
+backend_path = os.path.join(dir_path, "backend")
+os.chdir(backend_path)
+subprocess.check_call('npm install', shell=True)
+
+print("Dependencies downloaded successfully........")
+
+
+##############################################
 ###   CREATE THE DATABASE
 ##
 
@@ -75,24 +99,3 @@ cursor.execute(sqlFile)
 print("Data inserted successfully........")
 
 conn.close()
-
-
-##############################################
-###   DOWNLOAD THE DEPENDENCIES
-##
-
-# Path of project folder
-dir_path = os.path.dirname(os.path.realpath(__file__))
-
-# node_modules for cli
-cli_path = os.path.join(dir_path, "cli")
-os.chdir(cli_path)
-subprocess.check_call('npm install', shell=True)
-# subprocess.check_call('npm install -g', shell=True)
-
-# node_modules for backend server
-backend_path = os.path.join(dir_path, "backend")
-os.chdir(backend_path)
-subprocess.check_call('npm install', shell=True)
-
-print("Dependencies downloaded successfully........")

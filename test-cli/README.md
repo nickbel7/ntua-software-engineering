@@ -1,25 +1,25 @@
 # test-cli
-
-Περιεχόμενα:
-
+**Contents**:
 - CLI tests
 
 ---
 
-Requirements:
-
+**Requirements**:
 * Python 3
-* Libraries: pandas, openpyxl, colorama
+* Libraries: pandas, os, csv, colorama, pathlib, openpyxl
 
-How to Install libraries:
+**How to Install libraries**:
+- pip install pandas colorama pathlib openpyxl
 
-- pip install pandas openpyxl colorama
-
-How to run:
-
+**How to run**:
 - python test.py
 
-###NOTE:
-After running the cli testing script, the database needs to be restored due to api admin calls that reset some tables
+**Sample Output**:
 
-Chargesby test is missing.
+&nbsp; &nbsp; &nbsp; <img src="test_example/cli_test_example.png" width="400">
+
+**General Notes**: 
+- Set the "tests" and "tests_charge" values according to the number of tests you wish to perform
+- After running the cli testing script, the database needs to be restored due to api admin calls that reset some tables
+- In order to run the "passesupd check", make sure that the "resetpasses check" is not commented out!
+
