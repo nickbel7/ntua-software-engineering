@@ -16,9 +16,7 @@
 - Express
 ## Installation
 ### Dependencies
-```
 [API Dependencies](https://github.com/ntua/TL21-38/tree/master/api#dependencies-)
-```
 
 ## Code license
 The code in this repository is licensed under the [MIT license](LICENSE).
