@@ -5,7 +5,7 @@ const config = {
   	user: "postgres",
 	host: "localhost",
   	database: "diode",
-  	password: "root",
+  	password: "postgres",
   	port: 5432,
 }
 
