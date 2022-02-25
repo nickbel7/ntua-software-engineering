@@ -17,13 +17,7 @@
 ## Installation
 ### Dependencies
 ```
-cd ./api
-npm install
-npm install express
-npm install pg
-npm install file-system
-npm install body-parser
-npm install json2csv
+[API Dependencies](https://github.com/ntua/TL21-38/tree/master/api#dependencies-)
 ```
 
 ## Code license
