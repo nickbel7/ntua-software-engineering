@@ -7,6 +7,8 @@ const config = {
   	database: "diode",
   	password: "postgres",
   	port: 5432,
+	idleTimeoutMillis: 30000,
+  	connectionTimeoutMillis: 2000,
 }
 
 const pool = new pg.Pool(config);

@@ -1,57 +1,56 @@
+from asyncio.windows_events import NULL
 import pandas as pd 
-from pathlib import Path
 from colorama import Fore, Style
-import os
+import os, csv
+from pathlib import Path
+
 providers = {"AO": "1", "GF": "2", "EG": "3", "KO": "4", "MR": "5", "NE": "6" , "OO": "7"}
-func = {"passesperstation": 1 , "passesanalysis" : 2, "passescost": 3, "chargesby" : 4,
-         "healthcheck":5, "resetpasses": 6, "resetstations":7,"resetvehicles":8}
+se2138="cd ../cli && node --no-warnings index.js"
 
-def pa_param(line):
-    ret=[]
-    check=True
-    for i in range (len(line[0])):
-        if line[0][i]=="-": 
-            continue
-        if check:
-            ret.append(line[0][i:(i+2)])
-            check=False
-        else:
-            check=True
-    ret.append((line[1]))
-    return ret
 
-def pc_param(line):
-    ret=[]
-    prev=""
-    same = False
-    check=True
-    for i in range (len(line[0])):
-        if line[0][i]=="-": 
-            continue
-        if check:
-            if prev == str(line[0][i:(i+2)]):
-                same = True
-            prev = str(line[0][i:(i+2)])
-            ret.append(prev)
-            check=False
-        else:
-            check=True
-    if not same:
-        if str(line[1]) == 'nan':
-            ret.append('null')
-        else:
-            ret.append((line[1]))
-        
+def takeparam(x, line, y=3):
+    if(x==1):
+        return(line[0],line[1])
+    elif (x==2 or y==4) and y!=3:
+        ret=[]
+        check=True
+        for i in range (len(line[0])):
+            if line[0][i]=="-": 
+                continue
+            if check:
+                ret.append(line[0][i:(i+2)])
+                check=False
+            else:
+                check=True
+        ret.append((line[1]))
+        return(ret)
     else:
-        ret.append('null')
-    return ret
-
-def pps_param(line):
-    
-    return [line[0],line[1]]
+        ret=[]
+        prev=""
+        same = False
+        check=True
+        for i in range (len(line[0])):
+            if line[0][i]=="-": 
+                continue
+            if check:
+                if prev == str(line[0][i:(i+2)]):
+                    same = True
+                prev = str(line[0][i:(i+2)])
+                ret.append(prev)
+                check=False
+            else:
+                check=True
+        if not same:
+            if str(line[1]) == 'nan':
+                ret.append('null')
+            else:
+                ret.append((line[1]))
+        else:
+            ret.append('null')
+        return ret
 
 def takedate(line):
-    d=pa_param(line)
+    d=takeparam(2,line,2)
     start_date=d[0]+d[1]+d[2]+"01"
     if ((int(d[2])+1)%13) == 0:
         month = "{:02d}".format((int(d[2])+1)%13 + 1)
@@ -59,38 +58,30 @@ def takedate(line):
     else:
         month = "{:02d}".format(int(d[2])+1)
     end_date=d[0]+d[1]+month+"01"
-
     return (start_date,end_date)
 
-def makecli(date, param, testfunc):
-    if(testfunc== func["passesperstation"]):
-        ret=f"cd ../cli && node --no-warnings index.js passesperstation --station {param[0]} --datefrom {date[0]} --dateto {date[1]} --format json && cd../test-cli"
-    elif(testfunc == func["passesanalysis"]):
-        ret=f"cd ../cli && node --no-warnings index.js passesanalysis --op1 {providers[param[1]]} --op2 {providers[param[0]]} --datefrom {date[0]} --dateto {date[1]} --format json && cd../test-cli"
-    elif(testfunc == func["passescost"]):
-        ret=f"cd ../cli && node --no-warnings index.js passescost --op1 {providers[param[1]]} --op2 {providers[param[0]]} --datefrom {date[0]} --dateto {date[1]} --format json && cd../test-cli"
-    elif(testfunc == func["chargesby"]):
-        pass
-    elif(testfunc==func["healthcheck"]):
-        ret=f"cd ../cli && node --no-warnings index.js healthcheck && cd../test-cli"
-    elif(testfunc==func["resetpasses"]):
-        ret=f"cd ../cli && node --no-warnings index.js resetpasses && cd../test-cli"
-    elif(testfunc==func["resetstations"]):
-        ret=f"cd ../cli && node --no-warnings index.js resetstations && cd../test-cli"
-    elif(testfunc==func["resetvehicles"]):
-        ret=f"cd ../cli && node --no-warnings index.js resetvehicles && cd../test-cli"
-    return (ret)
+def makecli(x, date, param, y=0):
+    if (x==1):
+        return (se2138+" passesperstation --station "+param[0]+" --datefrom "+date[0]+" --dateto "+date[1]+" --format json")
+    if (x==2 and y==1):
+        return (se2138+" passesanalysis --op1 "+providers[param[1]]+" --op2 "+providers[param[0]]+" --datefrom "+date[0]+" --dateto "+date[1]+" --format json")
+    if (x==2 and y==3):
+        return (se2138+" passescost --op1 "+providers[param[1]]+" --op2 "+providers[param[0]]+" --datefrom "+date[0]+" --dateto "+date[1]+" --format json")
+    if (y==4):
+        return (se2138+" chargesby --op1 "+providers[param[0]]+" --datefrom "+date[0]+" --dateto "+date[1]+" --format csv")
+    if (y==5):
+        return (se2138+" "+param)
+    
 
-def programout(command,testfunc):
+def retans(command,y=1):
     stream = os.popen(command)
+    if(y==4): 
+        return solve_csv(stream)
     output = stream.read()
-    if(testfunc== func["passesperstation"]):
+    if(y==1):
         txt=output.partition("NumberOfPasses: ")
         ans,_,_=txt[2].partition(",")
-    elif(testfunc == func["passesanalysis"]):
-        txt=output.partition("NumberOfPasses: ")
-        ans,_,_=txt[2].partition(",")
-    elif(testfunc == func["passescost"]):
+    elif(y==2 or y==3):
         txt=output.partition("PassesCost: ")
         ans,_,_=txt[2].partition("}")
         if ans[0]!='n':
@@ -98,178 +89,105 @@ def programout(command,testfunc):
             ans = float(ans)
         else:
             ans = 'null'
-    elif(testfunc == func["chargesby"]):
-        pass
-    elif(testfunc== func["healthcheck"]):
-        txt=output.partition("status: ")
-        ans,_,_=txt[2].partition(",")
-        ans = str(ans)
-    else:
-        txt=output.partition("status: ")
-        ans,_,_=txt[2].partition(" }")
-        ans = str(ans)
     return ans
 
-file=Path("sampledata01_christina_yiannos.xlsm")
+def solve_csv(stream):
+    data = csv.reader(stream)
+    arr = []
+    next(data)
+    next(data)
+    next(data)
+    for row in data:
+        arr.append(row[2])
+    return arr
 
-#Passes Per Station Testing
-print(Fore.YELLOW+"PASSES PER STATION TEST START"+Style.RESET_ALL)
-
-passesperstation = pd.read_excel(file, sheet_name="number_of_passes_per_station")
-line = passesperstation.values.tolist()
-line = line[2:]
-
-test_num=100
-passed = 0
-for i in range(0,test_num):
-    if(line[i][0][0]=="2"):
-        date=takedate(line[i])
-        passed = passed + 1
-        continue
-    param = pps_param(line[i])
-    command = makecli(date,param,func["passesperstation"])
-    value = str(programout(command,func["passesperstation"]))
-    expected = str(param[1])
-    if(value==expected):
-        passed = passed + 1
-    else:
-        print(Fore.RED + "failed")
-    
-print(f"Passes: {passed}/{test_num}")
-
-if passed!=test_num:
-    print("Status: " + Fore.RED+f"Failed!value={value}, expected={expected}")
-    exit()
-else:
-    print("Status: " + Fore.GREEN+"Passed")
-
-print(Fore.YELLOW+"PASSES PER STATION TEST END"+Style.RESET_ALL)
-print()
-
-
-
-#Passes Analysis Testing
-print(Fore.YELLOW+"PASSES ANALYSIS TEST START"+Style.RESET_ALL)
-
-
-passesanalysis=pd.read_excel(file, sheet_name="passes_analysis")
-line=passesanalysis.values.tolist()
-line= line[2:]
-
-test_num=100
-passed = 0
-for i in range(0,test_num):
-    if(line[i][0][0]=="2"):
-        date=takedate(line[i])
-        passed = passed + 1
-        continue
-    param=pa_param(line[i])
-    command=makecli(date,param,func["passesanalysis"])
-    value = str(programout(command,func["passesanalysis"]))
-    expected = str(param[2])
-    if(value==expected):
-        passed = passed + 1
-    else:
-        print(Fore.RED + "failed")
-    
-print(f"Passes: {passed}/{test_num}")
-
-if passed!=test_num:
-    print("Status: " + Fore.RED+"Failed!")
-else:
-    print("Status: " + Fore.GREEN+"Passed")
-
-print(Fore.YELLOW+"PASSES ANALYSIS TEST END"+Style.RESET_ALL)
-print()
-
-#Passes Cost Testing
-
-print(Fore.YELLOW+"PASSES COST TEST START"+Style.RESET_ALL)
-
-passescost=pd.read_excel(file, sheet_name="passes_cost")
-line=passescost.values.tolist()
-
-test_num=100
-passed = 0
-for i in range(0,test_num):
-    if(line[i][0][0]=="2"):
-        date=takedate(line[i])
-        passed = passed + 1
-        continue
-    param=pc_param(line[i])
-    command=makecli(date,param,func["passescost"])
-    value = programout(command,func["passescost"])
-    expected = param[2]   
-
-    if type(value) != type(expected):
-        print(Fore.RED + f"failed! value: {value}, expected:{expected}!")
-    else:
-        if expected == 'null' or expected == 'nan':
-            passed = passed + 1
-        elif abs(value-expected)<0.001:
-            passed = passed + 1
+def check(function,x,y=0):
+    sheet=pd.read_excel(file, sheet_name=function)
+    line=sheet.values.tolist()
+    counter=1
+    print(Style.RESET_ALL+Fore.YELLOW+function+" TEST START"+Style.RESET_ALL)
+    for i in range(2,tests+1):
+        if(line[i][0][0]=="2"):
+            date=takedate(line[i])
+            counter+=1
+            continue
+        param=takeparam(x,line[i])
+        command=makecli(x,date,param,y)
+        cli=retans(command,y)
+        xl=param[x]
+        if y==3 and type(cli) != type(xl):
+            print(Fore.RED + f"failed! retans(command,y): {cli}, xl: {xl}!")
         else:
-            print(Fore.RED + f"failed! value: {value}, expected:{expected}!")
-
+            if cli == 'null' or cli == 'nan':
+                counter = counter + 1
+            elif((abs(float(cli)-float(xl)))<0.001):
     
-print(f"Passes: {passed}/{test_num}")
+                counter+=1
+            else:
+                print(Fore.RED+"Checking ", i, "->False")
+    print(f"Passes: {counter}/{tests}")
+    if(counter==tests):
+        print("Status: "+Fore.GREEN+"Passed")
+    else:
+        print("Status: "+Fore.RED+"Failed" )
+    print(Fore.YELLOW+function+" TEST END\n"+Style.RESET_ALL)
 
-if passed!=test_num:
-    print("Status: " + Fore.RED+"Failed!")
-else:
-    print("Status: " + Fore.GREEN+"Passed")
+def charge(function):
+    sheet=pd.read_excel(file, sheet_name=function)
+    line=sheet.values.tolist()
+    counter=1
+    print(Style.RESET_ALL+Fore.YELLOW+function+" TEST START"+Style.RESET_ALL)
+    last="xx"
+    cli="a"
+    j=0
+    for i in range(2,tests_charge+1):
+        if(line[i][0][0]=="2"):
+            date=takedate(line[i])
+            counter+=1
+            continue
+        param=takeparam(2,line[i],4)
+        xl=param[2] #answer in e.g. param[2]
+        if(param[0]!=last): 
+            last=param[0]
+            command=makecli(4,date,param,4)
+            cli=retans(command,4) #answer from CLI
+            j=0
+        cli_param=cli[j]
+        j+=1
+        if(round(float(cli_param),2)==round(float(xl),2)): 
+            counter+=1
+        else:
+            print(Fore.RED+"Checking ", i, "->False"+Style.RESET_ALL)
+    print(f"Passes: {counter}/{tests_charge}")
+    if(counter==tests_charge):
+        print("Status: "+Fore.GREEN+"Passed"+Style.RESET_ALL)
+    else:
+        print("Status: "+Fore.RED+"Failed"+Style.RESET_ALL)
+    print(Fore.YELLOW+function+" TEST END\n"+Style.RESET_ALL)    
 
-print(Fore.YELLOW+"PASSES COST TEST END"+Style.RESET_ALL)
-print()
+def admin(function):
+    command=makecli(NULL,NULL,param=function,y=5)
+    stream = os.popen(command)
+    output = stream.read()
+    _,c,_=output.partition("OK")
+    if c=="OK" or c=="OK,":
+        print("Status: "+Fore.GREEN+"Passed"+Style.RESET_ALL)
+    else:
+        print("Status: "+Fore.RED+"Failed"+Style.RESET_ALL)
 
-#Healthcheck Testing
-print(Fore.YELLOW+"HEALTHCHECK TEST START"+Style.RESET_ALL)
-command=makecli([],[],func["healthcheck"])
-value = str(programout(command,func["healthcheck"]))
-if value =='\'OK\'':
-    print("Status: " + Fore.GREEN+"Passed")
-else:
-    print("Status: " + Fore.RED+"Failed!")
-    print(value)
 
-print(Fore.YELLOW+"HEALTHCHECK TEST END"+Style.RESET_ALL)
-print()
+tests=20
+tests_charge=20
+file=Path("sampledata01.xlsm")
+check("PASSES_ANALYSIS", 2, 1)
+check("PASSES_PER_STATION",1, 1)
+check("PASSES_COST",2,3)
+charge("CHARGES_BY")
 
-#ResetPasses Testing
-print(Fore.YELLOW+"RESETPASSES TEST START"+Style.RESET_ALL)
-command=makecli([],[],func["resetpasses"])
-value = str(programout(command,func["resetpasses"]))
-if value =='\'OK\'':
-    print("Status: " + Fore.GREEN+"Passed")
-else:
-    print("Status: " + Fore.RED+"Failed!")
-    print(value)
+print(Style.RESET_ALL+Fore.YELLOW+"ADMIN TEST START"+Style.RESET_ALL)
+for a in ("healthcheck", "resetstations", "resetvehicles", "resetpasses", "admin --passesupd --source ../cli/data/sampledata_passes.csv"):
+    admin(a)
+print(Style.RESET_ALL+Fore.YELLOW+"ADMIN TEST END"+Style.RESET_ALL)
 
-print(Fore.YELLOW+"RESETPASSES TEST END"+Style.RESET_ALL)
-print()
 
-#ResetStations Testing
-print(Fore.YELLOW+"RESETSTATIONS TEST START"+Style.RESET_ALL)
-command=makecli([],[],func["resetstations"])
-value = str(programout(command,func["resetstations"]))
-if value =='\'OK\'':
-    print("Status: " + Fore.GREEN+"Passed")
-else:
-    print("Status: " + Fore.RED+"Failed!")
-    print(value)
 
-print(Fore.YELLOW+"RESETSTATIONS TEST END"+Style.RESET_ALL)
-print()
-
-#ResetVehicles Testing
-print(Fore.YELLOW+"RESETVEHICLES TEST START"+Style.RESET_ALL)
-command=makecli([],[],func["resetvehicles"])
-value = str(programout(command,func["resetvehicles"]))
-if value =='\'OK\'':
-    print("Status: " + Fore.GREEN+"Passed")
-else:
-    print("Status: " + Fore.RED+"Failed!")
-    print(value)
-
-print(Fore.YELLOW+"RESETVEHICLES TEST END"+Style.RESET_ALL)
-print()
