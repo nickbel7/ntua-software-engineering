@@ -22,6 +22,8 @@ backend_path = os.path.join(dir_path, "backend")
 os.chdir(backend_path)
 subprocess.check_call('npm install', shell=True)
 
+os.chdir(dir_path)
+
 print("Dependencies downloaded successfully........")
 
 
