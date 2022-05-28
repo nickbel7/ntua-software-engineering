@@ -21,7 +21,12 @@
 - Express
 
 ## How to deploy
-Run the deploy.py script with : `python deploy.py`
+1. Run the deploy.py script with : `python deploy.py`
+1. Fill database with data (Make api calls to) :
+  - `https://localhost:9103/interoperability/api/admin/resetstations`
+  - `https://localhost:9103/interoperability/api/admin/resetvehicles`
+  - `https://localhost:9103/interoperability/api/admin/UploadData` 
+1. Run webserver with : `node /backend/index.js`
 
 ## API 
 [API Documentation](https://github.com/ntua/TL21-38/blob/master/api/README.md)
